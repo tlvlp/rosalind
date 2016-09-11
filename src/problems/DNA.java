@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author tlvlp
  */
-public class DNA {
+public class dna {
 
     /**
      *

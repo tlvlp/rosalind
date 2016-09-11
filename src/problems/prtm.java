@@ -10,7 +10,7 @@ import java.util.*;
  * @author tlvlp
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
-public class ProblemTemplate {
+public class prtm {
 
     /**
      * @param inList

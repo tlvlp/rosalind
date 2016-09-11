@@ -5,7 +5,7 @@ import java.util.*;
  *
  * @author tlvlp
  */
-public class GC {
+public class gc {
 
     /**
      *
@@ -13,7 +13,7 @@ public class GC {
      * @return
      */
     public static ArrayList<String> solve(ArrayList<String> inList) {	
-        /* get the line with the largest GC count.
+        /* get the line with the largest gc count.
         every first item is a header and every second is the base sequence related to it*/
         double currentCnt;
         double largestCnt = 0.0;
@@ -36,7 +36,7 @@ public class GC {
         return outList;
     }
 
-    // Calculates the GC content - move it to a separate class if it will be needed elsewhere :)
+    // Calculates the gc content - move it to a separate class if it will be needed elsewhere :)
     public static double gcContentCalc(String dna){
         double dnaLen = dna.length();
         int gcCount = 0;

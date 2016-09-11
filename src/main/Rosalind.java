@@ -26,7 +26,7 @@ public class Rosalind {
         
         machine = "Windows"; // Windows, Linux - should be automated.
         parser = "default";    // default, fasta
-        module = "dna";       // Rosalind module eg. revc, prot, etc.
+        module = "prot";       // Rosalind module eg. revc, prot..
         
 
         //======================================================================        
@@ -35,7 +35,7 @@ public class Rosalind {
         
         //execute the selected module
         //ArrayList<String> outList = ModulExecute.launch(machine, module, inList);
-         ArrayList<String> outList = DNA.solve(inList);
+         ArrayList<String> outList = prot.solve(inList);
         
         //save output to file
         OutputWriter.save(machine, module, outList);
