@@ -36,7 +36,7 @@ public class gc {
         return outList;
     }
 
-    // Calculates the gc content - move it to a separate class if it will be needed elsewhere :)
+    // Calculates the gc content of a dna string
     public static double gcContentCalc(String dna){
         double dnaLen = dna.length();
         int gcCount = 0;

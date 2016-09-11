@@ -5,13 +5,12 @@
  */
 package problems;
 import java.util.*;
-import utils.Converter;
 
 /**
  * @author tlvlp
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
-public class prtm {
+public class rna {
 
     /**
      * @param inList
@@ -21,19 +20,22 @@ public class prtm {
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         
-        String proteinStr = inList.get(0);
-        double currentMass = 0.0;
-        double allMass = 0.0;
-        System.out.println("String: " + proteinStr); // debug 
-
-        for (int i=0; i < proteinStr.length(); ++i){
-                currentMass = Converter.getAminoAcidMass(proteinStr.charAt(i));
-                allMass = allMass + currentMass;
-                System.out.println(proteinStr.charAt(i) +" mass: "+ currentMass +" total:"+ allMass ); // debug 
+        String strIn = inList.get(0);
+        String strOut = "";
+        for (int i=0; i<strIn.length(); ++i) {
+                switch (strIn.charAt(i)) {
+                        case 'A':
+                        case 'C':
+                        case 'G':
+                                strOut = strOut + strIn.charAt(i);
+                                break;
+                        case 'T':
+                                strOut = strOut + 'U';
+                                break;
+                }
         }
-
-        outList.add(Double.toString(allMass));
         
+        outList.add(strOut);
         return outList;
     }
 }
