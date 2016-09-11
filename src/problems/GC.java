@@ -2,13 +2,13 @@ package problems;
 import java.util.*;
 
 /**
- *
  * @author tlvlp
  */
 public class gc {
 
     /**
-     *
+     * !!! REQUIRES THE FASTA PARSER !!!
+     * 
      * @param inList
      * @return
      */
