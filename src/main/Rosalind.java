@@ -26,7 +26,7 @@ public class Rosalind {
         
         machine = "Windows"; // Windows, Linux - should be automated.
         parser = "default";    // default, fasta
-        module = "subs";       // Rosalind module eg. revc, prot..
+        module = "rna";       // Rosalind module eg. revc, prot..
         
 
         //======================================================================        
@@ -34,10 +34,9 @@ public class Rosalind {
         ArrayList<String> inList = InputParser.selector(machine, module, parser);
         
         //execute the selected module
-        ArrayList<String> outList = ModulExecute.launch(machine, module, inList);
-        //ArrayList<String> outList = subs.solve(inList);
+        ArrayList<String> outList = ModulExecute.launch(module, inList);
+        //ArrayList<String> outList = subs.solve(inList); // direc call bypassing ModulExecute
         
-                
         //save output to file
         OutputWriter.save(machine, module, outList);
     }
