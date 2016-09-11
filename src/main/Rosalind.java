@@ -20,7 +20,7 @@ public class Rosalind {
         
         workDir = "rosalind_data";  // user~/workDir
         parser  = "default";        // default, fasta.. (utils/InputParser)
-        module  = "revc";            // Rosalind problem code eg. revc, prot..
+        module  = "iprb";            // Rosalind problem code eg. revc, prot..
         
         
         //======================================================================        

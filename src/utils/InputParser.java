@@ -14,8 +14,8 @@ import java.util.*;
  */
 public class InputParser {
     
-    //
     public static ArrayList<String> selector(String workDir, String module, String parser) throws IOException {
+    //launches the parser chosen in the Setup part of the main method
         ArrayList<String> inList = new ArrayList<>();
         switch (parser) {
             case "fasta":
@@ -23,18 +23,18 @@ public class InputParser {
                 break;
             case "default":
             default:
-                inList = parse(workDir, module);
+                inList = parseToArrayList(workDir, module);
         }
         return inList;
     }
     
+    public static ArrayList<String> parseToArrayList(String workDir, String module) throws IOException {
     //stores each line of the input file as an arraylist item
-    public static ArrayList<String> parse(String workDir, String module) throws IOException {
         System.out.println("Parsig with: default parser");
         System.out.println("Workig directory: " + workDir);
         System.out.println("Rosalind module: " + module);
         
-        ArrayList<String> inList = new ArrayList<String>();
+        ArrayList<String> inList = new ArrayList<>();
         //Setting the path to the given folder under the current user's home/Documents directory
         String inputFile = System.getProperty("user.home") + "/Documents/" + workDir +"/rosalind_" + module + ".txt";
         
@@ -47,9 +47,9 @@ public class InputParser {
         return inList;
     }
 
+    public static ArrayList<String> parseFasta(String workDir, String module) throws IOException {        
     /* loads a FASTA file into an array list concatenating multi-line sequences.
     Every first line is a title and every second is the related sequence */
-    public static ArrayList<String> parseFasta(String workDir, String module) throws IOException {        
         System.out.println("Parsig with: default parser");
         System.out.println("Workig directory: " + workDir);
         System.out.println("Rosalind module: " + module);
@@ -60,7 +60,7 @@ public class InputParser {
         ArrayList<String> inList;
         ArrayList<String> inListProc;
         try (Scanner inFile = new Scanner (new FileReader(inputFile))) {
-            inList = parse(workDir, module);
+            inList = parseToArrayList(workDir, module);
             inListProc = new ArrayList<>();
             //use the original parser first
         }
@@ -91,5 +91,51 @@ public class InputParser {
         } 
         return inListProc;
 
-    } 
+    }
+    
+    public static ArrayList<String> parseStrToALString(String strIn, Character delimiter) {
+    //parses the input String into an ArrayList of Strings with a given delimiter
+        ArrayList<String> outList = new ArrayList<>();
+        String strColl = "";
+        int listCnt = 0;     
+        int strLen = strIn.length();
+        
+        for (int i=0; i<strLen; ++i) {
+            //if reached the delimiter or the end of the string save the currently collected string to the current list item
+            if (i == strLen-1) {
+                strColl = strColl + strIn.charAt(i);
+                outList.add(strColl);
+                strColl = "";
+            }if (strIn.charAt(i) == delimiter) {
+                outList.add(strColl);
+                strColl = "";
+            } else {
+                strColl = strColl + strIn.charAt(i);
+            }    
+        }
+        return outList;
+    }
+    
+    public static ArrayList<Integer> parseStrToALInt(String strIn, Character delimiter) {
+    //parses the input String into an ArrayList of Integers with a given delimiter
+        ArrayList<Integer> outList = new ArrayList<>();
+        String strColl = "";
+        int listCnt = 0;     
+        int strLen = strIn.length();
+        
+        for (int i=0; i<strLen; ++i) {
+            //if reached the delimiter or the end of the string save the currently collected string to the current list item
+            if (i == strLen-1) {
+                strColl = strColl + strIn.charAt(i);
+                outList.add(Integer.parseInt(strColl));
+                strColl = "";
+            }if (strIn.charAt(i) == delimiter) {
+                outList.add(Integer.parseInt(strColl));
+                strColl = "";
+            } else {
+                strColl = strColl + strIn.charAt(i);
+            }    
+        }
+        return outList;
+    }
 }

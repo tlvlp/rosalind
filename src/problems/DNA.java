@@ -13,7 +13,6 @@ import java.util.*;
 public class dna {
 
     /**
-     *
      * @param inList
      * @return
      */
