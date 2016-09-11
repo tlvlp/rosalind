@@ -15,22 +15,22 @@ public class Rosalind {
      */
     public static void main(String[] args) throws IOException, Exception {
         //Settings =============================================================
-        String machine, module, parser;
+        String workDir, module, parser;
         
         
-        machine = "Windows"; // Windows, Linux - should be automated.
-        parser = "default";    // default, fasta
-        module = "rna";       // Rosalind module eg. revc, prot..
+        workDir = "rosalind_data";  // user~/workDir
+        parser  = "default";        // default, fasta.. (utils/InputParser)
+        module  = "revc";            // Rosalind problem code eg. revc, prot..
         
         
         //======================================================================        
         //parse input
-        ArrayList<String> inList = InputParser.selector(machine, module, parser);
+        ArrayList<String> inList = InputParser.selector(workDir, module, parser);
         
         //execute the selected module
         ArrayList<String> outList = ModuleExecute.launch(module, inList);
         
         //save output to file
-        OutputWriter.save(machine, module, outList);
+        OutputWriter.save(workDir, module, outList);
     }
 }

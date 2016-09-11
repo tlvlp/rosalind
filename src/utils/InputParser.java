@@ -15,33 +15,29 @@ import java.util.*;
 public class InputParser {
     
     //
-    public static ArrayList<String> selector(String machine, String module, String parser) throws IOException {
+    public static ArrayList<String> selector(String workDir, String module, String parser) throws IOException {
         ArrayList<String> inList = new ArrayList<>();
         switch (parser) {
             case "fasta":
-                inList = parseFasta(machine, module);
+                inList = parseFasta(workDir, module);
                 break;
             case "default":
             default:
-                inList = parse(machine, module);
+                inList = parse(workDir, module);
         }
         return inList;
     }
     
     //stores each line of the input file as an arraylist item
-    public static ArrayList<String> parse(String machine, String module) throws IOException {
-        System.out.println("Parsig with: default parser - machine: "+machine+" module: "+module);//debug
+    public static ArrayList<String> parse(String workDir, String module) throws IOException {
+        System.out.println("Parsig with: default parser");
+        System.out.println("Workig directory: " + workDir);
+        System.out.println("Rosalind module: " + module);
+        
         ArrayList<String> inList = new ArrayList<String>();
-        String inputFile = "";
-        switch (machine) {
-            case "Windows":
-                System.out.println(module);
-                inputFile = "c:\\Temp\\rosalind_data\\rosalind_" + module + ".txt";
-                break;
-            case "Linux":
-                inputFile = "/tmp/rosalind_data/rosalind_" + module + ".txt";
-                break;
-        }
+        //Setting the path to the given folder under the current user's home/Documents directory
+        String inputFile = System.getProperty("user.home") + "/Documents/" + workDir +"/rosalind_" + module + ".txt";
+        
         try (final Scanner inFile = new Scanner(new FileReader(inputFile))) {
             inList = new ArrayList<>();
             while (inFile.hasNextLine()) {
@@ -53,21 +49,18 @@ public class InputParser {
 
     /* loads a FASTA file into an array list concatenating multi-line sequences.
     Every first line is a title and every second is the related sequence */
-    public static ArrayList<String> parseFasta(String machine, String module) throws IOException {
-        System.out.println("\"Parsig with: parseFasta - machine: "+machine+" module: "+module);//debug
-        String inputFile = null;
-        switch (machine) {
-            case "Windows":
-                inputFile = "c:\\Temp\\rosalind_data\\rosalind_" + module + ".txt";
-                break;
-            case "Linux":
-                inputFile = "/tmp/rosalind_data/rosalind_" + module + ".txt";
-                break;
-        }
+    public static ArrayList<String> parseFasta(String workDir, String module) throws IOException {        
+        System.out.println("Parsig with: default parser");
+        System.out.println("Workig directory: " + workDir);
+        System.out.println("Rosalind module: " + module);
+        
+        //Setting the path to the given folder under the current user's home/Documents directory
+        String inputFile = System.getProperty("user.home") + "/Documents/" + workDir +"/rosalind_" + module + ".txt";
+        
         ArrayList<String> inList;
         ArrayList<String> inListProc;
         try (Scanner inFile = new Scanner (new FileReader(inputFile))) {
-            inList = parse(machine, module);
+            inList = parse(workDir, module);
             inListProc = new ArrayList<>();
             //use the original parser first
         }
