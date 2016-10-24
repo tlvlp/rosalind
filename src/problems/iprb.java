@@ -12,7 +12,7 @@ import utils.InputParser;
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class iprb {
-
+    public static String parser = "default";
     /**
      * @param inList
      * @return
@@ -21,10 +21,10 @@ public class iprb {
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         
-        ArrayList<String> inListParsed = InputParser.parseStrToALString(inList.get(0), ' ');
+        ArrayList<String> inListParsed = InputParser.parseByDelimiter_Str(inList.get(0), ' ');
         System.out.println(inListParsed);
         
-        ArrayList<Integer> inListParsedInt = InputParser.parseStrToALInt(inList.get(0), ' ');
+        ArrayList<Integer> inListParsedInt = InputParser.parseByDelimiter_Int(inList.get(0), ' ');
         System.out.println(inListParsedInt);
         
         System.out.println(outList);

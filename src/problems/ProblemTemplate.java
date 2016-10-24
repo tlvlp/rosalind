@@ -17,7 +17,10 @@ public class ProblemTemplate {
      * @return
      */
     // main method for the solution of the rosalind problem in the class name
-    public static ArrayList<String> solve(ArrayList<String> inList) {	
+    
+    public static String parser = "default";
+    
+    public static ArrayList<String> solve(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<>();
         
         

@@ -16,7 +16,8 @@ public class ModuleExecute {
     
     public static ArrayList<String> launch(String module, ArrayList<String> inList) throws Exception {
         /*
-        this method launches a class.mehtod from a string input using reflection
+        Launches a class.mehtod from a string input using reflection.
+        It is used to launch the problem classes from a string input.
         */
         
         ArrayList<String> outList = new ArrayList<>();

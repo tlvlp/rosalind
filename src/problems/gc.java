@@ -5,7 +5,7 @@ import java.util.*;
  * @author tlvlp
  */
 public class gc {
-
+    public static String parser = "fasta";
     /**
      * !!! REQUIRES THE FASTA PARSER !!!
      * 

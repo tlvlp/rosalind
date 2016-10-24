@@ -3,6 +3,7 @@ package utils;
 public class Converter {
 	
 	public static String getAminoAcid(String codon) {
+        //Gives back the amino acid from a codon sequence
 		String AminoAcid = "";
 		
 		switch (codon) {
@@ -138,6 +139,7 @@ public class Converter {
 	}
 	
 	public static int getVarNum(char AminoAcid) {
+        //Gives back the number of variations that exist for the given amino acid.
 		int varNum = 0;
 		switch (AminoAcid) {
 			case 'A':
@@ -205,6 +207,7 @@ public class Converter {
 	}
 	
 	public static double getAminoAcidMass(char AminoAcid) {
+        //Gives back the mass of the given amino acid
 		double mass = 0.0;
 		switch (AminoAcid) {
 			case 'A':

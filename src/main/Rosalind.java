@@ -14,18 +14,21 @@ public class Rosalind {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException, Exception {
+        String workDir, module;
+        String slash = System.getProperty("file.separator");
+        
         //Settings =============================================================
-        String workDir, module, parser;
         
+        //working directory for in/output files
+        workDir = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash;
         
-        workDir = "rosalind_data";  // user~/workDir
-        parser  = "default";        // default, fasta.. (utils/InputParser)
-        module  = "iprb";            // Rosalind problem code eg. revc, prot..
-        
+        //Rosalind problem code eg. revc, prot..
+        module  = "lcsm";
         
         //======================================================================        
+        
         //parse input
-        ArrayList<String> inList = InputParser.selector(workDir, module, parser);
+        ArrayList<String> inList = InputParser.selector(workDir, module);
         
         //execute the selected module
         ArrayList<String> outList = ModuleExecute.launch(module, inList);
