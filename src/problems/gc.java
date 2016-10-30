@@ -48,6 +48,6 @@ public class gc {
         }
         gcContent = (gcCount/dnaLen) * 100;
         System.out.println("gcCount: " + gcCount + " dnaLen: " + dnaLen + " gcContent: " + gcContent );//debug
-        return gcContent;
+        return gcContent; 
     }
 }
