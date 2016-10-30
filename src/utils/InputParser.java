@@ -15,14 +15,14 @@ import java.util.*;
 public class InputParser {
     
     public static ArrayList<String> selector(String workDir, String module) throws IOException, ClassNotFoundException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
-        //gets the chosen parser from the problem class                
+        //get the parser from the problem class                
         String className = "problems." + module;   //the package name is hardcoded
         String fieldName = "parser";
         Class myClass = Class.forName(className);
         Field myField = myClass.getDeclaredField(fieldName);
         String parser = myField.get(null).toString();  
         
-        //launches the parser chosen in the Setup part of the main method
+        //launche the parser selected in the Setup part of the main method
         ArrayList<String> inList = new ArrayList<>();
             switch (parser) {
                 case "fasta":
