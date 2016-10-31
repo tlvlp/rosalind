@@ -29,6 +29,15 @@ public class mprt {
         String slash = System.getProperty("file.separator");
         ArrayList<String> UniProtDatabase = InputParser.parseFasta(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-all.fasta");
         
+        //reparse inList to only contain the relevant IDs
+        
+        //loop through the UniProtDatabase headers 
+            //parse the ID from the UniProtDatabase header
+            //loop through the IDs from the inList
+                //if the inList ID matches the ID from the header 
+                    //get the checkNGlycosylationMotif for the ID
+                        //if the mofif is empty leave the ID
+                        //if the motif has coordinates, add the header and coordinates to the outlist
         
         
         return outList;
