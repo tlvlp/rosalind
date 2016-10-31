@@ -22,86 +22,54 @@ public class lcsm {
         ArrayList<String> outList = new ArrayList<>();
         //create a list for the longestList strings and addig the first fasta sequence
         ArrayList<String> longestList = new ArrayList<>();
-        longestList.add(inList.get(1));
-        System.out.println("======================================================================================================");
-        //loop through all the fasta sequences in the output (every even numbered entry is a header, every odd is a sequence)
-        for (int i=3; i<inList.size(); i+=2) {
-            //get the currentFullSequence sequence
-            String currentFullSequence = inList.get(i);
-            System.out.println("solve currentFullSequence " + currentFullSequence);
-            System.out.println("solve longestList " + longestList);
-            //collect the common subset of the previous longestList substring and the next full sequence
-            longestList = CompareLongestList_to_currentFullSequence(currentFullSequence,longestList);
-//            System.out.println("solve longestList AFTER" + longestList);
-            System.out.println("======================================================================================================");
-        }
-        // return the last longest common substring (assuming that there are more than one with identical length)
-        System.out.println("longestList FINAL: " + longestList);
-        String longestStr = SelectLastLongest(longestList);
-        System.out.println("longestStr FINAL: " + longestStr);
-        outList.add(longestStr);
-        return outList;
-
-    }
-
-    public static ArrayList<String> CompareLongestList_to_currentFullSequence (String currentFullSequence, ArrayList<String> longestList) {
-     /* 1. takes the previous longest list and loops through it
-            2. compares its items to the currentFullSequence
-            3. only keeps the items or the substrings of the items that can be found in the currentFullSequence
-        4. returns the new longest list */
-//        System.out.println("======================================================================================================");
-//        System.out.println("START CompareLongestList_to_currentFullSequence");
-        // collector list
-        ArrayList<String> longestListCurrent = new ArrayList<>();
-        for (int g=0; g<longestList.size(); g++) {
-            //temporary work list for the collector list
-            ArrayList<String> longestListCurrentWork = new ArrayList<>();
-//            System.out.println("CompareLongestList_to_currentFullSequence FOR START");
-//            System.out.println("CompareLongestList_to_currentFullSequence longestListCurrent BEFORE "+longestListCurrent);
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList.size() BEFORE " +longestList.size());
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList BEFORE " +longestList);
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList.get(g) BEFORE " +longestList.get(g));
-//            System.out.println("CompareLongestList_to_currentFullSequence currentFullSequence BEFORE "+ currentFullSequence);
-            longestListCurrentWork = (CompareLongestListItem_to_currentFullSequence(currentFullSequence, longestList.get(g)));
-            //adding the newly collected items to the collector list
-            for (int a=0; a<longestListCurrentWork.size(); a++) {
-                //check for redundancy in the colletor list to keep the size to a minimum
-                if (!longestListCurrent.contains(longestListCurrentWork.get(a))) {
-                    longestListCurrent.add(longestListCurrentWork.get(a));                    
+        //collect the common subset of the previous longestList substring and the next full sequence
+        longestList = CompareFirstTwoSequence(inList.get(1), inList.get(3));
+        String longestStr = "";
+        //checks if the string is a substing of all the sequences in the fasta file
+        boolean isSubstringOfAll = false;
+        //loop while finding a largest shared sequence
+        while (!isSubstringOfAll) {
+            //return the last longest common substring (assuming that there are more than one with identical length)            
+            longestStr = SelectLastLongest(longestList);
+            //remove the string from the original list not to be picked again in the future
+            longestList.remove(longestStr);
+            //checks if the current string is the substring of the current sequence
+            
+            boolean isSubstringOfThisRound = true;
+            //loop through the rest of the sequences in the fasta file - assuming that there is more than two seqences
+            for (int i=5; i<inList.size(); i+=2) {
+                //check if the string is a substring of the current sequence
+                if (!isValidSubStr(longestStr, inList.get(i))) {
+                   isSubstringOfThisRound = false;
+                   break; 
                 }
             }
-//            System.out.println("CompareLongestList_to_currentFullSequence longestListCurrent AFTER "+longestListCurrent);
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList.size() AFTER " +longestList.size());
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList AFTER " +longestList);
-//            System.out.println("CompareLongestList_to_currentFullSequence longestList.get(g) AFTER " +longestList.get(g));
-
+            //check if isSubstringOfThisRound remains true through the loop
+            if (isSubstringOfThisRound) {
+                isSubstringOfAll = true;
+            }
         }
-        return longestListCurrent;
+        //add the longestStr to the standard output list
+        outList.add(longestStr);
+        return outList;
     }
 
-    public static ArrayList<String> CompareLongestListItem_to_currentFullSequence (String currentFullSequence, String longestList_CurrentItem) {
-    /*  2. compares its items to the currentFullSequence
-        3. only keeps the items or the substrings of the items that can be found in the currentFullSequence */
-//        System.out.println("===========================================================");
-//        System.out.println("START CompareLongestListItem_to_currentFullSequence");
-//        System.out.println("CompareLongestListItem_to_currentFullSequence currentFullSequence BEFORE " + currentFullSequence);
-//        System.out.println("CompareLongestListItem_to_currentFullSequence longestList_CurrentItem BEFORE " + longestList_CurrentItem);
+    public static ArrayList<String> CompareFirstTwoSequence (String firstSequence, String secondSequence) {
+    /*  2. compares its items to the second sequence
+        3. only keeps the items or the substrings of the items that can be found in the second sequence */
+        System.out.println("firstSequence: " + firstSequence);
+        System.out.println("secondSequence: " + secondSequence);
         //a list to collect the shared subsequences
         ArrayList<String> sharedSubstringList = new ArrayList<>();
         //loop through all the substring variations of longestList
-//        System.out.println("CompareLongestListItem_to_currentFullSequence longestList_CurrentItem.length() " + longestList_CurrentItem.length());
-        for (int i=0; i<longestList_CurrentItem.length()-1; i++) {
-//            System.out.println("survived the first for ");
-            for (int e=i+2; e<=longestList_CurrentItem.length(); e++) {
-//                System.out.println("survived the second for ");
-//                System.out.println("CompareLongestListItem_to_currentFullSequence longestList_CurrentItem.length() IN FOR " + longestList_CurrentItem.length());
+        for (int i=0; i<firstSequence.length()-1; i++) {
+            for (int e=i+2; e<=firstSequence.length(); e++) {
                 //this substring variation of longestList
-                String subOfLongestList_CurrentItem = longestList_CurrentItem.substring(i, e);
-//                System.out.println("CompareLongestListItem_to_currentFullSequence subOfLongestList_CurrentItem " + subOfLongestList_CurrentItem);
-                // if this substring of longestList is a substring of currentFullSequence as well it is added to the list
-                if (isValidSubStr(subOfLongestList_CurrentItem, currentFullSequence)) {
-                    sharedSubstringList.add(subOfLongestList_CurrentItem);
-//                    System.out.println("CompareLongestListItem_to_currentFullSequence sharedSubstringList.size() "+sharedSubstringList.size());
+                String subOfFirstSequence = firstSequence.substring(i, e);
+                //if this substring of longestList is a substring of second sequence as well it is added to the list
+                //adding !sharedSubstringList.contains(subOfFirstSequence) && to the if statement reduces redundance but adds 10s to the runtime instead of shortening it
+                if (isValidSubStr(subOfFirstSequence, secondSequence)) {
+                    sharedSubstringList.add(subOfFirstSequence);
                 }
             }
         }
@@ -111,14 +79,10 @@ public class lcsm {
     public static boolean isValidSubStr(String checkStr, String baseStr) {
     /*  loop through a string to find another string
         returns true if a match is found, returns false at the end of the loop */
-//        System.out.println("----------------------------------------------------");
-//        System.out.println("START isValidSubStr");
         int checkStrLength = checkStr.length();
         int baseStrLength = baseStr.length();
         for (int j=0; j<(baseStrLength-checkStrLength+1); j++) {
             String baseStrSub = baseStr.substring(j,j+checkStrLength);
-//            System.out.println("isValidSubStr checkStr   "+checkStr);
-//            System.out.println("isValidSubStr baseStrSub "+baseStrSub);
             if (baseStrSub.equals(checkStr)) return true;
         }
         return false;
@@ -126,10 +90,9 @@ public class lcsm {
 
     public static String SelectLastLongest(ArrayList<String> longestList) {
     /* Selects the last longest item of a list of strings */
-//        System.out.println("START SelectLastLongest");
         // check if the longestList contains any items at all
         if (longestList.isEmpty()) {
-//            System.out.println("SelectLastLongest There is no shared substring!");
+            System.out.println("There is no shared substring!");
             return "There is no shared substring!";
         }        
         String longestStr = longestList.get(0);

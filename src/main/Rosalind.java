@@ -23,7 +23,7 @@ public class Rosalind {
         workDir = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash;
         
         //Rosalind problem code eg. revc, prot..
-        module  = "gc";
+        module  = "lcsm";
         
         //======================================================================        
         
