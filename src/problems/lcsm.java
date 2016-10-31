@@ -5,6 +5,7 @@
  */
 package problems;
 import java.util.*;
+import utils.DataOperations;
 
 /**
  * @author tlvlp
@@ -30,7 +31,7 @@ public class lcsm {
         //loop while finding a largest shared sequence
         while (!isSubstringOfAll) {
             //return the last longest common substring (assuming that there are more than one with identical length)            
-            longestStr = SelectLastLongest(longestList);
+            longestStr = DataOperations.SelectLastLongestItem(longestList);
             //remove the string from the original list not to be picked again in the future
             longestList.remove(longestStr);
             //checks if the current string is the substring of the current sequence
@@ -39,7 +40,7 @@ public class lcsm {
             //loop through the rest of the sequences in the fasta file - assuming that there is more than two seqences
             for (int i=5; i<inList.size(); i+=2) {
                 //check if the string is a substring of the current sequence
-                if (!isValidSubStr(longestStr, inList.get(i))) {
+                if (!DataOperations.isValidSubStr(longestStr, inList.get(i))) {
                    isSubstringOfThisRound = false;
                    break; 
                 }
@@ -68,39 +69,11 @@ public class lcsm {
                 String subOfFirstSequence = firstSequence.substring(i, e);
                 //if this substring of longestList is a substring of second sequence as well it is added to the list
                 //adding !sharedSubstringList.contains(subOfFirstSequence) && to the if statement reduces redundance but adds 10s to the runtime instead of shortening it
-                if (isValidSubStr(subOfFirstSequence, secondSequence)) {
+                if (DataOperations.isValidSubStr(subOfFirstSequence, secondSequence)) {
                     sharedSubstringList.add(subOfFirstSequence);
                 }
             }
         }
         return sharedSubstringList;
-    }
-
-    public static boolean isValidSubStr(String checkStr, String baseStr) {
-    /*  loop through a string to find another string
-        returns true if a match is found, returns false at the end of the loop */
-        int checkStrLength = checkStr.length();
-        int baseStrLength = baseStr.length();
-        for (int j=0; j<(baseStrLength-checkStrLength+1); j++) {
-            String baseStrSub = baseStr.substring(j,j+checkStrLength);
-            if (baseStrSub.equals(checkStr)) return true;
-        }
-        return false;
-    }
-
-    public static String SelectLastLongest(ArrayList<String> longestList) {
-    /* Selects the last longest item of a list of strings */
-        // check if the longestList contains any items at all
-        if (longestList.isEmpty()) {
-            System.out.println("There is no shared substring!");
-            return "There is no shared substring!";
-        }        
-        String longestStr = longestList.get(0);
-        for (int m=1; m<longestList.size(); m++) {
-            if (longestList.get(m).length() > longestStr.length()) {
-                longestStr = longestList.get(m);
-            }
-        }
-        return longestStr;
     }
 }

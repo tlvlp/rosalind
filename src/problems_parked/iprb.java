@@ -5,6 +5,7 @@
  */
 package problems_parked;
 import java.util.*;
+import utils.DataOperations;
 import utils.InputParser;
 
 /**
@@ -21,10 +22,10 @@ public class iprb {
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         
-        ArrayList<String> inListParsed = InputParser.parseByDelimiter_Str(inList.get(0), ' ');
+        ArrayList<String> inListParsed = DataOperations.parseByDelimiter_Str(inList.get(0), ' ');
         System.out.println(inListParsed);
         
-        ArrayList<Integer> inListParsedInt = InputParser.parseByDelimiter_Int(inList.get(0), ' ');
+        ArrayList<Integer> inListParsedInt = DataOperations.parseByDelimiter_Int(inList.get(0), ' ');
         System.out.println(inListParsedInt);
         
         System.out.println(outList);

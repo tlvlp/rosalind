@@ -26,24 +26,23 @@ public class InputParser {
         ArrayList<String> inList = new ArrayList<>();
             switch (parser) {
                 case "fasta":
-                    inList = parseFasta(workDir, module);
+                    inList = parseFasta(workDir);
                     break;
                 case "default":
                 default:
-                    inList = parseDefault(workDir, module);
+                    inList = parseDefault(workDir);
             }
             return inList;
         }
     
-    public static ArrayList<String> parseDefault(String workDir, String module) throws IOException {
+    public static ArrayList<String> parseDefault(String workDir) throws IOException {
     //stores each line of the input file as an arraylist item
         System.out.println("Parsig with: DEFAULT parser");
         System.out.println("Workig directory: " + workDir);
-        System.out.println("Rosalind module: " + module);
         
         ArrayList<String> inList = new ArrayList<>();
         //Setting the path to the given folder under the current user's home/Documents directory
-        String inputFile = workDir + "rosalind_" + module + ".txt";
+        String inputFile = workDir;
         
         try (final Scanner inFile = new Scanner(new FileReader(inputFile))) {
             inList = new ArrayList<>();
@@ -54,20 +53,19 @@ public class InputParser {
         return inList;
     }
 
-    public static ArrayList<String> parseFasta(String workDir, String module) throws IOException {        
+    public static ArrayList<String> parseFasta(String workDir) throws IOException {        
     /* loads a FASTA file into an array list concatenating multi-line sequences.
     Every first line is a title and every second is the related sequence */
         System.out.println("Parsig with: FASTA parser");
         System.out.println("Workig directory: " + workDir);
-        System.out.println("Rosalind module: " + module);
         
         //Setting the path to the given folder under the current user's home/Documents directory
-        String inputFile = workDir + "rosalind_" + module + ".txt";
+        String inputFile = workDir;
         
         ArrayList<String> inList;
         ArrayList<String> inListProc;
         try (Scanner inFile = new Scanner (new FileReader(inputFile))) {
-            inList = parseDefault(workDir, module);
+            inList = parseDefault(workDir);
             inListProc = new ArrayList<>();
             //use the original parser first
         }
@@ -97,66 +95,5 @@ public class InputParser {
                 }
         } 
         return inListProc;
-
-    }
-    
-    
-    
-    
-    
-    /*
-    
-    OTHER METHODS    =======================================================
-    
-    */
-    
-    
-    
-    
-    
-    public static ArrayList<String> parseByDelimiter_Str(String strIn, Character delimiter) {
-    //parses the input String into an ArrayList of Strings with a given delimiter
-        ArrayList<String> outList = new ArrayList<>();
-        String strColl = "";
-        int listCnt = 0;     
-        int strLen = strIn.length();
-        
-        for (int i=0; i<strLen; ++i) {
-            //if reached the delimiter or the end of the string save the currently collected string to the current list item
-            if (i == strLen-1) {
-                strColl = strColl + strIn.charAt(i);
-                outList.add(strColl);
-                strColl = "";
-            }if (strIn.charAt(i) == delimiter) {
-                outList.add(strColl);
-                strColl = "";
-            } else {
-                strColl = strColl + strIn.charAt(i);
-            }    
-        }
-        return outList;
-    }
-    
-    public static ArrayList<Integer> parseByDelimiter_Int(String strIn, Character delimiter) {
-    //parses the input String into an ArrayList of Integers with a given delimiter
-        ArrayList<Integer> outList = new ArrayList<>();
-        String strColl = "";
-        int listCnt = 0;     
-        int strLen = strIn.length();
-        
-        for (int i=0; i<strLen; ++i) {
-            //if reached the delimiter or the end of the string save the currently collected string to the current list item
-            if (i == strLen-1) {
-                strColl = strColl + strIn.charAt(i);
-                outList.add(Integer.parseInt(strColl));
-                strColl = "";
-            }if (strIn.charAt(i) == delimiter) {
-                outList.add(Integer.parseInt(strColl));
-                strColl = "";
-            } else {
-                strColl = strColl + strIn.charAt(i);
-            }    
-        }
-        return outList;
-    }
+    }  
 }
