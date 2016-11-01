@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package problems;
 import java.util.*;
 import utils.*;
@@ -14,29 +10,25 @@ import java.io.IOException;
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class mprt {
-
-    // main method for the solution of the rosalind problem in the class name  
-    public static String parser = "default";
     
+    // main method for the solution of the rosalind problem in the class name  
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
         
         //create the fasta list that needs to retrieve the numbers
         ArrayList<Fasta> inListFasta = makeInListFasta(inList);
         
-        /* import the UniProt database 
-        original source is the fasta format downloaded (Reviewed, Swill-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes */
-        String slash = System.getProperty("file.separator");
-        ArrayList<String> UniProtDatabaseParse = InputParser.parseDefault(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-all.fasta");
-        ArrayList<Fasta> UniProtDatabase = InputParser.parseFastaToFasta(UniProtDatabaseParse);
+        //update UniProt IDs that have received a second ID as the database only contains these - source: ftp://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/docs/sec_ac.txt
+        //parse the file
+        InputParser.parseDefault(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"mprt"+slash+"sec_ac.txt");
+        //loop through inListFasta
+            //check each item if the ID is present in the selcond ID list, if yes, change them to that
         
-        /*
-        for (int q=0; q<UniProtDatabase.size(); q++) {
-            System.out.println("==========================");
-            System.out.println("header: "+UniProtDatabase.get(q).getHeader());
-            System.out.println("sequence: "+UniProtDatabase.get(q).getSequence());
-            System.out.println("coords: "+UniProtDatabase.get(q).getCoords());
-        }  */
+        /* import the UniProt database 
+        original source of the fasta: (Reviewed, Swiss-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes */
+        String slash = System.getProperty("file.separator");
+        ArrayList<String> UniProtDatabaseParse = InputParser.parseDefault(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"mprt"+slash+"uniprot-all.fasta");
+        ArrayList<Fasta> UniProtDatabase = InputParser.parseFastaToFasta(UniProtDatabaseParse);
     
         //check the requested IDs agains the database and return with the items that have the 
         inListFasta = getCoords(inListFasta, UniProtDatabase);
@@ -48,7 +40,6 @@ public class mprt {
                 outList.add(inListFasta.get(q).getCoords());
             }
         }
-        System.out.println("outList: "+outList);
         return outList;
     }
     
@@ -79,6 +70,13 @@ public class mprt {
                     outListFasta.get(i).setCoords(checkNGlycosylationMotif(UniProtDatabase.get(u).getSequence()));
                 }
             }
+        }
+        //debug info
+        for (int q=0; q<outListFasta.size(); q++) {
+            System.out.println("==========================");
+            System.out.println("header: "+outListFasta.get(q).getHeader());
+            System.out.println("sequence: "+outListFasta.get(q).getSequence());
+            System.out.println("coords: "+outListFasta.get(q).getCoords());
         }
         return outListFasta;
     }
