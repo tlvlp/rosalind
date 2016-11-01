@@ -14,32 +14,54 @@ import java.io.IOException;
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class mprt {
 
-    /**
-     * @param inList
-     * @return
-     */
-    // main method for the solution of the rosalind problem in the class name
-    
-    public static String parser = "fasta";
+    // main method for the solution of the rosalind problem in the class name  
+    public static String parser = "default";
     
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
+        ArrayList<String> workList = new ArrayList<>();
         /* import the UniProt database 
         original source is the fasta format downloaded (Reviewed, Swill-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes */
         String slash = System.getProperty("file.separator");
         ArrayList<String> UniProtDatabase = InputParser.parseFasta(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-all.fasta");
         
-        //reparse inList to only contain the relevant IDs
-        
-        //loop through the UniProtDatabase headers 
+        //prepare the workList - gányolás 1
+        for (int n=0; n<inList.size(); n++) {
+            workList.add(inList.get(n));
+            workList.add("");
+        }
+        System.out.println("workList: "+workList);
+        System.out.println("workList.get(x).substring(0,6): "+workList.get(8).substring(0,6));
+
+        //loop through the UniProtDatabase headers - should be in a separate method
+        for (int u=0; u<UniProtDatabase.size(); u+=2) {
             //parse the ID from the UniProtDatabase header
-            //loop through the IDs from the inList
-                //if the inList ID matches the ID from the header 
+            String dbID = UniProtDatabase.get(u).substring(4,10));
+            //loop through the IDs from the inList - the ID in all inList item is the first 6 char
+            for (int i=0; i<workList.size(); i+=2) {
+                String inID = workList.get(i).substring(0,6));
+                //if the inList ID matches the ID from the header
+                if (dbID.equals(inID)) {
                     //get the checkNGlycosylationMotif for the ID
-                        //if the mofif is empty leave the ID
-                        //if the motif has coordinates, add the header and coordinates to the outlist
+                    String motifCoords = checkNGlycosylationMotif(UniProtDatabase.get(u+1));
+                    //if the mofif is empty leave the ID
+                    //if the motif has coordinates, add the inList header and coordinates to the workList
+                    if (!motifCoords.isEmpty()) {
+                        workList.set(i+1, motifCoords);
+                        System.out.println(inID + " motif coordinates: " + motifCoords);
+                    }
+                    else System.out.println(inID + " Was not found!");
+                }
+            }
+        }
         
-        
+        //clean the output - gányolás 2
+        for (int m=0; m<workList.size(); m+=2) {
+            if (m<workList.size()-1 && !workList.get(m+1).isEmpty()) {
+                outList.add(workList.get(m));
+                outList.add(workList.get(m+1));
+            }
+        }
         return outList;
     }
     
@@ -59,7 +81,7 @@ public class mprt {
                (seqSub.charAt(2)=='S' || seqSub.charAt(2)=='T') &&
                 seqSub.charAt(3)!='P') {
                     //collecting the coordinates for the motif - addig +1 as the Rosalind coordinates start with 1 instead of 0
-                    collectMotifLocations = collectMotifLocations + (i+1) + " ";
+                    collectMotifLocations = collectMotifLocations.concat((i+1)+" ");
             }
         }
         //return the collected coordinates (or empty) with a trimmed the last space

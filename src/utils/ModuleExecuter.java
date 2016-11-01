@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author tlvlp
  */
-public class ModuleExecute {
+public class ModuleExecuter {
     
     public static ArrayList<String> launch(String module, ArrayList<String> inList) throws Exception {
         /*

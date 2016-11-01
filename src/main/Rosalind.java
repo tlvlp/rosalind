@@ -33,7 +33,7 @@ public class Rosalind {
         ArrayList<String> inList = InputParser.selector(filePathIn, module);
         
         //execute the selected module
-        ArrayList<String> outList = ModuleExecute.launch(module, inList);
+        ArrayList<String> outList = ModuleExecuter.launch(module, inList);
         
         //save output to file
         OutputWriter.save(filePathOut, outList);

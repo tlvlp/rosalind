@@ -9,7 +9,9 @@ public class OutputWriter {
         //Setting the path to the given folder under the current user's home/Documents directory        
         try (PrintWriter outFile = new PrintWriter(new FileWriter(filePath))) {
             for (int i=0; i<outList.size(); i++) {
-                outFile.println(outList.get(i));
+                //conditional check to avoid println creating an extra empty line at the end of the output file that Rosalind interprets as error.
+                if (i<outList.size()-1) outFile.println(outList.get(i));
+                else outFile.print(outList.get(i));
             }
         }
     }

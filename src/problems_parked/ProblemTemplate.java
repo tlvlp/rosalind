@@ -12,15 +12,10 @@ import java.util.*;
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class ProblemTemplate {
 
-    /**
-     * @param inList
-     * @return
-     */
-    // main method for the solution of the rosalind problem in the class name
-    
     public static String parser = "default";
     
     public static ArrayList<String> solve(ArrayList<String> inList) {
+    /* main method for the solution of the rosalind problem in the class name */
         ArrayList<String> outList = new ArrayList<>();
         
         
