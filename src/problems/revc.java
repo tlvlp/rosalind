@@ -11,7 +11,6 @@ import java.util.*;
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class revc {
-    public static String parser = "default";
     /**
      * @param inList
      * @return

@@ -12,7 +12,6 @@ import utils.Converter;
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class prtm {
-    public static String parser = "default";
     /**
      * @param inList
      * @return

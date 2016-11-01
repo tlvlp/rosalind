@@ -20,64 +20,67 @@ public class mprt {
     
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> workList = new ArrayList<>();
+        
+        //create the fasta list that needs to retrieve the numbers
+        ArrayList<Fasta> inListFasta = makeInListFasta(inList);
         
         /* import the UniProt database 
         original source is the fasta format downloaded (Reviewed, Swill-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes */
         String slash = System.getProperty("file.separator");
-        ArrayList<Fasta> UniProtDatabase = InputParser.parseFastaToFasta(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-TEST.fasta");
+        ArrayList<String> UniProtDatabaseParse = InputParser.parseDefault(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-all.fasta");
+        ArrayList<Fasta> UniProtDatabase = InputParser.parseFastaToFasta(UniProtDatabaseParse);
         
+        /*
         for (int q=0; q<UniProtDatabase.size(); q++) {
             System.out.println("==========================");
             System.out.println("header: "+UniProtDatabase.get(q).getHeader());
             System.out.println("sequence: "+UniProtDatabase.get(q).getSequence());
             System.out.println("coords: "+UniProtDatabase.get(q).getCoords());
-            System.out.println("ID: "+UniProtDatabase.get(q).getID());
-            System.out.println("origPos: "+UniProtDatabase.get(q).getOrigPos());
-            
-        }  
-        
-        //prepare the workList
-        for (int n=0; n<inList.size(); n++) {
-            workList.add(inList.get(n));
-            workList.add("");
-        }
-        
+        }  */
+    
         //check the requested IDs agains the database and return with the items that have the 
-        workList = getCoords(workList, UniProtDatabase);
+        inListFasta = getCoords(inListFasta, UniProtDatabase);
         
-        //clean the output
-        for (int m=0; m<workList.size(); m+=2) {
-            if (m<workList.size()-1 && !workList.get(m+1).isEmpty()) {
-                outList.add(workList.get(m));
-                outList.add(workList.get(m+1));
+        //add the relevant info into the outlist
+        for (int q=0; q<inListFasta.size(); q++) {
+            if (!inListFasta.get(q).getCoords().isEmpty()) {
+                outList.add(inListFasta.get(q).getHeader());
+                outList.add(inListFasta.get(q).getCoords());
             }
         }
+        System.out.println("outList: "+outList);
         return outList;
     }
     
-    public static ArrayList<String> getCoords(ArrayList<String> workList, ArrayList<Fasta> UniProtDatabase) {
+    public static ArrayList<Fasta> makeInListFasta(ArrayList<String> inList) {
+    /* crates a fasta list from the original string list input that only contains the headers*/
+        ArrayList<Fasta> inListFasta = new ArrayList<>();
+        for (int i=0; i<inList.size(); i++) {
+            //initializes a new Fasta object with the inList item as the header and adds it to the list
+            Fasta thisFasta = new Fasta(inList.get(i));
+            inListFasta.add(thisFasta);
+        }
+        return inListFasta;
+    }
+    
+    public static ArrayList<Fasta> getCoords(ArrayList<Fasta> inListFasta, ArrayList<Fasta> UniProtDatabase) {
+        //create a worklist
+        ArrayList<Fasta> outListFasta = inListFasta;
         //loop through the UniProtDatabase headers
-        for (int u=0; u<UniProtDatabase.size(); u+=2) {
-            //parse the ID from the UniProtDatabase header
-            String dbID = UniProtDatabase.get(u).substring(4,10);
-            //loop through the IDs from the inList - the ID in all inList item is the first 6 char
-            for (int i=0; i<workList.size(); i+=2) {
-                String inID = workList.get(i).substring(0,6);
+        for (int u=0; u<UniProtDatabase.size(); u++) {
+            //loop through the IDs from the inList
+            for (int i=0; i<outListFasta.size(); i++) {
+                //parse the ID from the UniProtDatabase header
+                String dbID = UniProtDatabase.get(u).getUniProtID();
+                String inID = outListFasta.get(i).getHeader().substring(0,6);
                 //if the inList ID matches the ID from the header
                 if (dbID.equals(inID)) {
-                    //get the checkNGlycosylationMotif for the ID
-                    String motifCoords = checkNGlycosylationMotif(UniProtDatabase.get(u+1));
-                    //if the motif has been found add the inList header and coordinates to the workList
-                    if (!motifCoords.isEmpty()) {
-                        workList.set(i+1, motifCoords);
-                        System.out.println(inID + " motif coordinates: " + motifCoords);
-                    }
-                    else System.out.println(inID + " Was not found!");
+                    //look for the checkNGlycosylationMotif and save the coordinates. 
+                    outListFasta.get(i).setCoords(checkNGlycosylationMotif(UniProtDatabase.get(u).getSequence()));
                 }
             }
         }
-        return workList;
+        return outListFasta;
     }
     
     public static String checkNGlycosylationMotif (String seq) {

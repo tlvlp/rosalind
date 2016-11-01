@@ -7,11 +7,9 @@ package problems;
 import java.util.*;
 
 /**
- *
  * @author tlvlp
  */
 public class dna {
-    public static String parser = "default";
     /**
      * @param inList
      * @return

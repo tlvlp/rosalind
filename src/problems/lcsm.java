@@ -4,27 +4,35 @@
  * and open the template in the editor.
  */
 package problems;
+import java.io.IOException;
 import java.util.*;
 import utils.DataOperations;
+import utils.InputParser;
 
 /**
  * @author tlvlp
  */
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class lcsm {
-    public static String parser = "fasta";
     /**
      * @param inList
      * @return
+     * @throws java.io.IOException
      */
 
     //main method for the solution of the rosalind problem in the class name
-    public static ArrayList<String> solve(ArrayList<String> inList) {
+    public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
+        
+        //parse input to a fasta compatible format
+        ArrayList<String> inListFasta = InputParser.parseFastaToArrayList(inList);
+        
         //create a list for the longestList strings and addig the first fasta sequence
         ArrayList<String> longestList = new ArrayList<>();
+        
         //collect the common subset of the previous longestList substring and the next full sequence
-        longestList = CompareFirstTwoSequence(inList.get(1), inList.get(3));
+        longestList = CompareFirstTwoSequence(inListFasta.get(1), inListFasta.get(3));
+        
         String longestStr = "";
         //checks if the string is a substing of all the sequences in the fasta file
         boolean isSubstringOfAll = false;
@@ -35,12 +43,11 @@ public class lcsm {
             //remove the string from the original list not to be picked again in the future
             longestList.remove(longestStr);
             //checks if the current string is the substring of the current sequence
-            
             boolean isSubstringOfThisRound = true;
             //loop through the rest of the sequences in the fasta file - assuming that there is more than two seqences
-            for (int i=5; i<inList.size(); i+=2) {
+            for (int i=5; i<inListFasta.size(); i+=2) {
                 //check if the string is a substring of the current sequence
-                if (!DataOperations.isValidSubStr(longestStr, inList.get(i))) {
+                if (!DataOperations.isValidSubStr(longestStr, inListFasta.get(i))) {
                    isSubstringOfThisRound = false;
                    break; 
                 }
@@ -50,6 +57,7 @@ public class lcsm {
                 isSubstringOfAll = true;
             }
         }
+        
         //add the longestStr to the standard output list
         outList.add(longestStr);
         return outList;

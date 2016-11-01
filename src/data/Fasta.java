@@ -1,9 +1,6 @@
 package data;
 
-import java.util.ArrayList;
-
 /**
- *
  * @author tlvlp
  */
 public class Fasta {
@@ -12,18 +9,17 @@ public class Fasta {
     private String header;      //fasta header
     private String sequence;    //fasta sequence
     private String coords;      //eg. coordinates of a given sub sequence
-    private String ID;          //eg. the UniProt database ID that is a substring of the header
-    private String origPos;     //the fasta entry's original position in a list if the output order needs to match the input's
-    private ArrayList<String> collector = new ArrayList<>();    //for collecting shiny things   
     
     /* constructors */
     public Fasta(){
         header = "";
         sequence = "";
         coords = "";
-        ID = "";
-        origPos = "";
-        //collector is already initialized
+    }
+    public Fasta(String h){
+        header = h;
+        sequence = "";
+        coords = "";
     }
     
     /* misc methods */    
@@ -31,19 +27,14 @@ public class Fasta {
         sequence = sequence.concat(newFragment);
     }
     
-    /* geters */
+    /* the heretic geters */
     public String getHeader() {return header;}
     public String getSequence() {return sequence;}
     public String getCoords() {return coords;}
-    public String getID() {return ID;}
-    public String getOrigPos() {return origPos;}
-    public ArrayList<String> getCollector() {return collector;}
+    public String getUniProtID() {return header.substring(4,10);} //returns the UniProt ID from the header of a UniProt fasta file
     
-    /* seters */
+    /* the heretic seters */
     public void setHeader(String h) {header = h;}
     public void setSequence(String s) {sequence = s;}
     public void setCoords(String c) {coords = c;}
-    public void setID(String i) {ID = i;}
-    public void setOrigPos(String o) {origPos = o;}
-    public void setCollector(ArrayList<String> r) {collector = r;}
 }

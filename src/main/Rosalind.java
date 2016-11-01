@@ -30,7 +30,7 @@ public class Rosalind {
         //======================================================================        
         
         //parse input - parser selections are indicated in the problem classes
-        ArrayList<String> inList = InputParser.selector(filePathIn, module);
+        ArrayList<String> inList = InputParser.parseDefault(filePathIn);
         
         //execute the selected module
         ArrayList<String> outList = ModuleExecuter.launch(module, inList);

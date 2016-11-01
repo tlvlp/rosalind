@@ -1,26 +1,30 @@
 package problems;
+import java.io.IOException;
 import java.util.*;
+import utils.InputParser;
 
 /**
  * @author tlvlp
  */
 public class gc {
-    public static String parser = "fasta";
     /**
      * !!! REQUIRES THE FASTA PARSER !!!
      * 
      * @param inList
      * @return
+     * @throws java.io.IOException
      */
-    public static ArrayList<String> solve(ArrayList<String> inList) {	
+    public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {	
         /* get the line with the largest gc count.
         every first item is a header and every second is the base sequence related to it*/
+        ArrayList<String> inListFasta = InputParser.parseFastaToArrayList(inList);
+        
         double currentCnt;
         double largestCnt = 0.0;
         int largestCntID = 0;
 
-        for (int i=1; i<inList.size(); i+=2) {          //assuming that the last line is always a base sequence
-                currentCnt = gcContentCalc(inList.get(i));
+        for (int i=1; i<inListFasta.size(); i+=2) {          //assuming that the last line is always a base sequence
+                currentCnt = gcContentCalc(inListFasta.get(i));
                 if (currentCnt > largestCnt) {
                         largestCnt = currentCnt;
                         largestCntID = i;
@@ -29,10 +33,10 @@ public class gc {
         ArrayList<String> outList = new ArrayList<>();
         // add title of largestCnt to output
         int largestTitleID = largestCntID - 1;
-        outList.add(inList.get(largestTitleID).substring(1));
+        outList.add(inListFasta.get(largestTitleID).substring(1));
         // add largestCnt to output
         outList.add(Double.toString(largestCnt));
-        System.out.println("Title: " + inList.get(largestTitleID).substring(1) + "  largestCnt: " + largestCnt); //debug
+        System.out.println("Title: " + inListFasta.get(largestTitleID).substring(1) + "  largestCnt: " + largestCnt); //debug
         return outList;
     }
 
