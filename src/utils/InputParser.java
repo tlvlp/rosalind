@@ -8,6 +8,7 @@ package utils;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.util.*;
+import data.*;
 
 /**
  * @author tlvlp
@@ -56,8 +57,7 @@ public class InputParser {
     Every first line is a title and every second is the related sequence */
         System.out.println("Parsig with: FASTA parser");
         System.out.println("Workig directory: " + filePath);
-        
-        //Setting the path to the given folder under the current user's home/Documents directory        
+            
         ArrayList<String> inList;
         ArrayList<String> inListProc;
         try (Scanner inFile = new Scanner (new FileReader(filePath))) {
@@ -93,39 +93,45 @@ public class InputParser {
         return inListProc;
     }
     
-    public static ArrayList<String> parseFastanew_WORK_IN_PROGRESS(String filePath) throws IOException {        
+    public static ArrayList<Fasta> parseFastaToFasta(String filePath) throws IOException {        
     /* loads a FASTA file into an array list concatenating multi-line sequences.
     Every first line is a title and every second is the related sequence */
-        System.out.println("Parsig with: FASTA parser");
-        System.out.println("Input file path: " + filePath);
+        System.out.println("Parsig with: FASTA to FASTA parser");
+        System.out.println("Workig directory: " + filePath);
         
-        //Setting the path to the given folder under the current user's home/Documents directory        
-        ArrayList<String> inList = new ArrayList<>();
-        try (final Scanner inFile = new Scanner(new FileReader(filePath))) {
-            while (inFile.hasNextLine()) {
-                String thisline = inFile.nextLine();
-                String collector = "";
-                //checking for the fasta header line symbol '>'
-                if (thisline.startsWith(">")) {
-                    //if the collector is not empty, add the contents to the list
-                    if (!collector.isEmpty()) {
-                        inList.add(collector);
-                        collector = "";
-                    }
-                    inList.add(thisline);
+        ArrayList<String> inList;
+        ArrayList<Fasta> inListFasta =  new ArrayList<>();
+        try (Scanner inFile = new Scanner (new FileReader(filePath))) {
+            inList = parseDefault(filePath);
+            
+            //use the original parser first
+        }
+        // copy over to the other list concatenating the multi-line sequences
+        int cnt = 0;
+        String collector = "";
+        for (int i=0; i<inList.size(); i++) {
+            Fasta thisFasta = new Fasta();
+            // title
+            if (inList.get(i).startsWith(">")) {
+                    thisFasta.setHeader(inList.get(i));
+                    cnt++;
+            }
+            // base sequence
+            else {
+                collector = collector + inList.get(i);
+                //stop collection
+                if (i == inList.size()-1) {
+                    inListFasta.add(cnt, collector);
+                    collector = "";
+                    cnt++;
                 }
-                // base sequence
-                else {
-                    collector = collector + thisline;
-                    //stop collection at the end of the file
-                    if (!inFile.hasNextLine()) {
-                            inList.add(collector);
-                            collector = "";
-                    }
+                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) {
+                    inListFasta.add(cnt, collector);
+                    collector = "";
+                    cnt++;
                 }
             }
-        }
-        
-        return inList;
+        } 
+        return inListFasta;
     }
 }
