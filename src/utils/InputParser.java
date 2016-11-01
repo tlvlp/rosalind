@@ -96,42 +96,37 @@ public class InputParser {
     public static ArrayList<Fasta> parseFastaToFasta(String filePath) throws IOException {        
     /* loads a FASTA file into an array list concatenating multi-line sequences.
     Every first line is a title and every second is the related sequence */
-        System.out.println("Parsig with: FASTA to FASTA parser");
+        System.out.println("Parsig with: FASTA to FASTA(Object) parser");
         System.out.println("Workig directory: " + filePath);
         
         ArrayList<String> inList;
         ArrayList<Fasta> inListFasta =  new ArrayList<>();
+        
+        //use the original parser first
         try (Scanner inFile = new Scanner (new FileReader(filePath))) {
             inList = parseDefault(filePath);
-            
-            //use the original parser first
         }
-        // copy over to the other list concatenating the multi-line sequences
-        int cnt = 0;
-        String collector = "";
-        for (int i=0; i<inList.size(); i++) {
+        
+        Fasta thisFastaloop = new Fasta();
+        //collect the input to a list of fasta objects
+        for (int i=0; i<inList.size();) {
             Fasta thisFasta = new Fasta();
-            // title
-            if (inList.get(i).startsWith(">")) {
-                    thisFasta.setHeader(inList.get(i));
-                    cnt++;
+            //add the header
+            thisFasta.setHeader(inList.get(i));
+            i++;
+            //collect the sequence part
+            boolean breaker = true;
+            while (breaker){
+                //break out of the collection loop if at the end of the sequence or the whole input list or 
+                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) breaker = false;
+                if (i == inList.size()-1) breaker = false;
+                thisFasta.sequenceAdd(inList.get(i));
+                i++;
             }
-            // base sequence
-            else {
-                collector = collector + inList.get(i);
-                //stop collection
-                if (i == inList.size()-1) {
-                    inListFasta.add(cnt, collector);
-                    collector = "";
-                    cnt++;
-                }
-                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) {
-                    inListFasta.add(cnt, collector);
-                    collector = "";
-                    cnt++;
-                }
-            }
-        } 
+            //save Fasta to the list
+            inListFasta.add(thisFasta); 
+        }
+        
         return inListFasta;
     }
 }

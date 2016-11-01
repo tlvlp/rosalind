@@ -6,6 +6,7 @@
 package problems;
 import java.util.*;
 import utils.*;
+import data.*;
 import java.io.IOException;
 
 /**
@@ -24,7 +25,17 @@ public class mprt {
         /* import the UniProt database 
         original source is the fasta format downloaded (Reviewed, Swill-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes */
         String slash = System.getProperty("file.separator");
-        ArrayList<String> UniProtDatabase = InputParser.parseFasta(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-all.fasta");
+        ArrayList<Fasta> UniProtDatabase = InputParser.parseFastaToFasta(System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"uniprot-TEST.fasta");
+        
+        for (int q=0; q<UniProtDatabase.size(); q++) {
+            System.out.println("==========================");
+            System.out.println("header: "+UniProtDatabase.get(q).getHeader());
+            System.out.println("sequence: "+UniProtDatabase.get(q).getSequence());
+            System.out.println("coords: "+UniProtDatabase.get(q).getCoords());
+            System.out.println("ID: "+UniProtDatabase.get(q).getID());
+            System.out.println("origPos: "+UniProtDatabase.get(q).getOrigPos());
+            
+        }  
         
         //prepare the workList
         for (int n=0; n<inList.size(); n++) {
@@ -45,7 +56,7 @@ public class mprt {
         return outList;
     }
     
-    public static ArrayList<String> getCoords(ArrayList<String> workList, ArrayList<String> UniProtDatabase) {
+    public static ArrayList<String> getCoords(ArrayList<String> workList, ArrayList<Fasta> UniProtDatabase) {
         //loop through the UniProtDatabase headers
         for (int u=0; u<UniProtDatabase.size(); u+=2) {
             //parse the ID from the UniProtDatabase header
