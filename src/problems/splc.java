@@ -1,5 +1,5 @@
 
-package problems_parked;
+package problems;
 import java.util.*;
 
 /**
