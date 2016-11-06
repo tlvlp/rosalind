@@ -5,15 +5,10 @@ import java.util.*;
 /**
  * @author tlvlp
  */
-public class ProblemNameHere {
-
-    /**
-     * Solution of the Rosalind problem in the class name
-     * @param inList
-     * @return
-     */
+public class ProblemTemplate {
+    
     public static ArrayList<String> solve(ArrayList<String> inList) {
-        
+    /* main method for the solution of the rosalind problem in the class name */
         ArrayList<String> outList = new ArrayList<>();
         
         
