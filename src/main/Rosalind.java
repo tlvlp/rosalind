@@ -14,28 +14,29 @@ public class Rosalind {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException, Exception {
-        String filePathIn, filePathOut, module;
+        String filePathIn, filePathOut, problem;
         String slash = System.getProperty("file.separator");
         
         //Settings =============================================================
                       
         //Rosalind problem code eg. revc, prot..
-        module  = "mprt";
+        problem  = "mprt";
         
-        //working directory for input files
-        filePathIn = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + module + ".txt";
-        //working directory for output files
-        filePathOut = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + module + "_out.txt";
+        //full path for input file
+        filePathIn = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + ".txt";
+        
+        //full path for output file
+        filePathOut = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + "_out.txt";
         
         //======================================================================        
         
         //parse the input file
-        ArrayList<String> inList = InputParser.parseDefault(filePathIn);
+        ArrayList<String> inList = FileInputParser.parseDefault(filePathIn);
         
         //execute the selected module
-        ArrayList<String> outList = ModuleExecuter.launch(module, inList);
+        ArrayList<String> outList = ModuleExecuter.launch(problem, inList);
         
         //save the output to file
-        OutputWriter.save(filePathOut, outList);
+        FileOutputWriter.save(filePathOut, outList);
     }
 }

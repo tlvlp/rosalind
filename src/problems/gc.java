@@ -1,7 +1,7 @@
 package problems;
 import java.io.IOException;
 import java.util.*;
-import utils.InputParser;
+import utils.FileInputParser;
 
 /**
  * @author tlvlp
@@ -17,7 +17,7 @@ public class gc {
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {	
         /* get the line with the largest gc count.
         every first item is a header and every second is the base sequence related to it*/
-        ArrayList<String> inListFasta = InputParser.parseFastaToArrayList(inList);
+        ArrayList<String> inListFasta = FileInputParser.parseFastaToArrayList(inList);
         
         double currentCnt;
         double largestCnt = 0.0;

@@ -6,7 +6,7 @@
 package problems_parked;
 import java.util.*;
 import utils.DataOperations;
-import utils.InputParser;
+import utils.FileInputParser;
 
 /**
  * @author tlvlp

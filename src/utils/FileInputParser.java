@@ -12,10 +12,16 @@ import data.*;
 /**
  * @author tlvlp
  */
-public class InputParser {
+public class FileInputParser {
      
+    /**
+     * Stores each line of the input file in a String Array List
+     * @param filePath
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<String> parseDefault(String filePath) throws IOException {
-    //stores each line of the input file as an arraylist item
+    //
         System.out.println("Parsig with: DEFAULT parser");
         System.out.println("Input file: " + filePath);
         
@@ -30,8 +36,13 @@ public class InputParser {
         return inList;
     }
     
+    /**
+     * Parses the output of the parseDefault into an ArrayList of Strings. Every first line is a header and every second is the related sequence
+     * @param inList
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<String> parseFastaToArrayList(ArrayList<String> inList) throws IOException {        
-    /* parses the output of the parseDefault into an ArrayList of Strings. Every first line is a header and every second is the related sequence */
         System.out.println("Parsig with: FASTA to ArrayList parser");
         ArrayList<String> inListProc = new ArrayList<>();
         // copy over to the other list concatenating the multi-line sequences
@@ -62,8 +73,13 @@ public class InputParser {
         return inListProc;
     }
     
+    /**
+     * Parses the output of the parseDefault into an ArrayList of Fasta objects
+     * @param inList
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<Fasta> parseFastaToFasta(ArrayList<String> inList) throws IOException {        
-    /* parses the output of the parseDefault into an ArrayList of Fasta objects */
         System.out.println("Parsig with: FASTA to FASTA(Object) parser");
         ArrayList<Fasta> inListFasta =  new ArrayList<>();
         //collect the input to a list of fasta objects

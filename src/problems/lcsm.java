@@ -7,7 +7,7 @@ package problems;
 import java.io.IOException;
 import java.util.*;
 import utils.DataOperations;
-import utils.InputParser;
+import utils.FileInputParser;
 
 /**
  * @author tlvlp
@@ -25,7 +25,7 @@ public class lcsm {
         ArrayList<String> outList = new ArrayList<>();
         
         //parse input to a fasta compatible format
-        ArrayList<String> inListFasta = InputParser.parseFastaToArrayList(inList);
+        ArrayList<String> inListFasta = FileInputParser.parseFastaToArrayList(inList);
         
         //create a list for the longestList strings and addig the first fasta sequence
         ArrayList<String> longestList = new ArrayList<>();
