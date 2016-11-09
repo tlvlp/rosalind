@@ -1,9 +1,10 @@
 
 package problems;
-import java.util.*;
 import utils.*;
 import data.*;
+import java.util.*;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * @author tlvlp
@@ -46,10 +47,8 @@ public class mprt {
         
       /* Update the old UniProt IDs */
         ArrayList<String> secAcList = FileInputParser.parseDefault(sec_acPath);
-        // Parse the Updates list
-        Map<String, String> secAcListMap = parseUpdateIDsToMap(secAcList);
-        //loop through inListFasta
-        for (Fasta inListFastaItem : inListFasta) {
+        Map<String, String> secAcListMap = parseUpdateIDsToMap(secAcList); // Parse the Updates list
+        for (Fasta inListFastaItem : inListFasta) { //loop through inListFasta
             String reqID = inListFastaItem.getHeader().substring(0, 6);
             if (secAcListMap.containsKey(reqID)) { //if the requested ID is on the list of updated IDs
                 inListFastaItem.setAltID(secAcListMap.get(reqID)); //set the fasta object's altID to the updated ID
@@ -57,11 +56,11 @@ public class mprt {
         }
         
       /* Import the UniProt database */
-        ArrayList<String> UniProtDatabaseParse = FileInputParser.parseDefault(dbPath);
-        ArrayList<Fasta> UniProtDatabase = FileInputParser.parseFastaToFasta(UniProtDatabaseParse);
+        ArrayList<String> UniProtDbParse = FileInputParser.parseDefault(dbPath);
+        ArrayList<Fasta> UniProtDb = FileInputParser.parseFastaToFasta(UniProtDbParse);
     
       /* Search for and add the N-Glycosylation Motif coordinates */
-        inListFasta = getCoords(inListFasta, UniProtDatabase);
+        inListFasta = getCoords(inListFasta, UniProtDb);
         
       /* Add the entries into the outlist in the requested format */
         for (int q=0; q<inListFasta.size(); q++) {
@@ -95,14 +94,14 @@ public class mprt {
      * @param inListFasta
      */
     private static boolean isIdDeleted (ArrayList<Fasta> inListFasta, ArrayList<String> delAcList) {
-        /* Remove the header and footer */
+      /* Remove the header and footer */
         for (int n=26; n>=0; n--) {
             delAcList.remove(n);
         }
         for (int m=0; m<5; m++) {
             delAcList.remove(delAcList.size()-1);
         }
-        /* Check if the ID is on the list - if true: return with the error message */
+      /* Check if the ID is on the list - if true: return with the error message */
         for (String delAcListItem : delAcList) {
             for (Fasta inListFastaItem : inListFasta) {
                 String reqID = inListFastaItem.getHeader().substring(0, 6);
@@ -138,14 +137,10 @@ public class mprt {
      * @return
      */
     private static ArrayList<Fasta> getCoords(ArrayList<Fasta> inListFasta, ArrayList<Fasta> UniProtDatabase) {
-        //create a worklist
         ArrayList<Fasta> outListFasta = inListFasta;
-        //loop through the UniProtDatabase headers
-        for (int u=0; u<UniProtDatabase.size(); u++) {
-            //loop through the IDs from the inList
-            for (int i=0; i<outListFasta.size(); i++) {
-                //parse the ID from the UniProtDatabase header or use the Updated ID if present
-                String dbID = UniProtDatabase.get(u).getUniProtID();
+        for (int u=0; u<UniProtDatabase.size(); u++) {  //loop through the UniProtDatabase headers
+            for (int i=0; i<outListFasta.size(); i++) { //loop through the IDs from the inList
+                String dbID = UniProtDatabase.get(u).getUniProtID(); //parse the ID from the UniProtDatabase header or use the Updated altID if present
                 String inID = ""; 
                     if (outListFasta.get(i).getAltID().isEmpty()) {
                         inID = outListFasta.get(i).getHeader().substring(0,6);
@@ -153,15 +148,12 @@ public class mprt {
                     else {
                         inID = outListFasta.get(i).getAltID();
                     }
-                //if the inList ID matches the ID from the header
-                if (dbID.equals(inID)) {
-                    //look for the checkNGlycosylationMotif and save the coordinates. 
+                if (dbID.equals(inID)) { //if the inList ID matches the ID from the header look for the motif and save the coordinates.
                     outListFasta.get(i).setCoords(checkNGlycosylationMotif(UniProtDatabase.get(u).getSequence()));
                 }
             }
         }
-        //List each Fasta object's details
-        for (int q=0; q<outListFasta.size(); q++) {
+        for (int q=0; q<outListFasta.size(); q++) { //List each Fasta object's details
             System.out.println("==========================");
             System.out.println("header: "+outListFasta.get(q).getHeader());
             System.out.println("altID: "+outListFasta.get(q).getAltID());
@@ -176,26 +168,14 @@ public class mprt {
      * @return
      */
     public static String checkNGlycosylationMotif (String seq) {
-    /*  
-        To allow for the presence of its varying forms, a protein motif is represented by a shorthand as follows: 
-        [XY] means "either X or Y" 
-        {X} means "any amino acid except X." 
-        For example, the N-glycosylation motif is written as 
-        N{P}[ST]{P}.
-    */
-        String collectMotifLocations = "";
-        //loop through the sequence to look for the N-glycosylation motif
+        String motifRegex = "N[^P][ST][^P]";
+        String motifCoords = "";
         for (int i=0; i<seq.length()-3; i++) {
             String seqSub = seq.substring(i,i+4);
-            if (seqSub.charAt(0)=='N' &&
-                seqSub.charAt(1)!='P' &&
-               (seqSub.charAt(2)=='S' || seqSub.charAt(2)=='T') &&
-                seqSub.charAt(3)!='P') {
-                    //collecting the coordinates for the motif - addig +1 as the Rosalind coordinates start with 1 instead of 0
-                    collectMotifLocations = collectMotifLocations.concat((i+1)+" ");
+            if (Pattern.matches(motifRegex, seqSub)) {
+                motifCoords = motifCoords.concat((i+1)+" ");  //addig +1 as the Rosalind coordinates start with 1 instead of 0  
             }
         }
-        //return the collected coordinates (or empty) - extra spaces are trimmed
-        return collectMotifLocations.trim();
+        return motifCoords.trim(); //return the collected coordinates (or empty) - extra spaces are trimmed
     }
 }
