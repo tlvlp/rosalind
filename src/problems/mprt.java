@@ -1,9 +1,11 @@
 
 package problems;
-import utils.*;
 import data.*;
+import java.io.BufferedReader;
 import java.util.*;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 /**
@@ -19,48 +21,27 @@ public class mprt {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();  // output list
-        
-      /* Set the file paths ====================================================================================== */
-        
-        // OS independent slash to be used in the paths
-            String slash = System.getProperty("file.separator");
-        //Deleted IDs: ftp://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/docs/delac_sp.txt
-            String delac_spPath = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"mprt"+slash+"delac_sp.txt";
-        //Updated IDs: ftp://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/docs/sec_ac.txt
-            String sec_acPath = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"mprt"+slash+"sec_ac.txt";
-        //UniProt database: (Reviewed, Swiss-Prot) http://www.uniprot.org/uniprot/?query=*&fil=reviewed%3Ayes
-            String dbPath = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"mprt"+slash+"uniprot-all.fasta";
-            
-      /* ========================================================================================================= */
          
       /* Create a fasta object for each ID on the inList */
         ArrayList<Fasta> inListFasta = makeInListFasta(inList);
         
-      /* Check for deleted IDs */
-        ArrayList<String> delAcList = FileInputParser.parseDefault(delac_spPath);
-        String errorDel = "Terminating run: At least one ID from the input file has been permanently removed from the UniProt database.";
-        if (isIdDeleted(inListFasta, delAcList)) {
-            System.out.println(errorDel);
-            outList.add(errorDel);
-            return outList;
-        }
-        
-      /* Update the old UniProt IDs */
-        ArrayList<String> secAcList = FileInputParser.parseDefault(sec_acPath);
-        Map<String, String> secAcListMap = parseUpdateIDsToMap(secAcList); // Parse the Updates list
-        for (Fasta inListFastaItem : inListFasta) { //loop through inListFasta
-            String reqID = inListFastaItem.getHeader().substring(0, 6);
-            if (secAcListMap.containsKey(reqID)) { //if the requested ID is on the list of updated IDs
-                inListFastaItem.setAltID(secAcListMap.get(reqID)); //set the fasta object's altID to the updated ID
+      /* Add the N-Glycosylation Motif coordinates */
+        for (int i=0; i<inListFasta.size(); i++) { //loop through the IDs from the inList
+            URL uniProt = new URL("http://www.uniprot.org/uniprot/"+inListFasta.get(i).getHeader().substring(0, 6)+".fasta");
+            BufferedReader in = new BufferedReader(
+            new InputStreamReader(uniProt.openStream()));
+            in.readLine(); // skip the first line (fasta header)
+            String sequence =""; String inLine = "";
+            while ((inLine = in.readLine()) != null) {  //collect the sequence
+                sequence = sequence.concat(inLine);
             }
+            inListFasta.get(i).setCoords(checkNGlycosylationMotif(sequence)); //check for the motif
+        } 
+        for (int q=0; q<inListFasta.size(); q++) { //List each Fasta object's details
+            System.out.println("==========================");
+            System.out.println("header: "+inListFasta.get(q).getHeader());
+            System.out.println("coords: "+inListFasta.get(q).getCoords());
         }
-        
-      /* Import the UniProt database */
-        ArrayList<String> UniProtDbParse = FileInputParser.parseDefault(dbPath);
-        ArrayList<Fasta> UniProtDb = FileInputParser.parseFastaToFasta(UniProtDbParse);
-    
-      /* Search for and add the N-Glycosylation Motif coordinates */
-        inListFasta = getCoords(inListFasta, UniProtDb);
         
       /* Add the entries into the outlist in the requested format */
         for (int q=0; q<inListFasta.size(); q++) {
@@ -69,8 +50,6 @@ public class mprt {
                 outList.add(inListFasta.get(q).getCoords());
             }
         }
-        
-      /* Return the results */
         return outList;
     }
     
@@ -82,84 +61,10 @@ public class mprt {
     private static ArrayList<Fasta> makeInListFasta(ArrayList<String> inList) {
         ArrayList<Fasta> inListFasta = new ArrayList<>();
         for (int i=0; i<inList.size(); i++) {
-            //initializes a new Fasta object with the inList item as the header and adds it to the list
-            Fasta thisFasta = new Fasta(inList.get(i));
+            Fasta thisFasta = new Fasta(inList.get(i)); //initializes a new Fasta object with the inList item as the header and adds it to the list
             inListFasta.add(thisFasta);
         }
         return inListFasta;
-    }
-    
-    /**
-     * Checks if any of the requested UniProt IDs have been deleted.
-     * @param inListFasta
-     */
-    private static boolean isIdDeleted (ArrayList<Fasta> inListFasta, ArrayList<String> delAcList) {
-      /* Remove the header and footer */
-        for (int n=26; n>=0; n--) {
-            delAcList.remove(n);
-        }
-        for (int m=0; m<5; m++) {
-            delAcList.remove(delAcList.size()-1);
-        }
-      /* Check if the ID is on the list - if true: return with the error message */
-        for (String delAcListItem : delAcList) {
-            for (Fasta inListFastaItem : inListFasta) {
-                String reqID = inListFastaItem.getHeader().substring(0, 6);
-                if (delAcListItem.equals(reqID)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    
-    private static Map<String,String> parseUpdateIDsToMap(ArrayList<String> secAcList) {
-        Map<String, String> secAcListMap = new HashMap<>();
-        /* Remove the header and footer */
-        for (int n=29; n>=0; n--) {
-            secAcList.remove(n);
-        }
-        secAcList.remove(secAcList.size()-1);
-        /* Add the old and new IDs to a map */
-        for (int i=0; i<secAcList.size()-1; i++) {
-            int lineLength = secAcList.get(i).length();
-            String oldID = secAcList.get(i).substring(0, 10).trim(); // first 10 characters trimmed from remaining sapces
-            String newID = secAcList.get(i).substring(lineLength-10, lineLength).trim(); // last 10 characters trimmed from remaining sapces
-            secAcListMap.put(oldID, newID);
-        }
-        return secAcListMap;
-    }
-    
-    /**
-     * Collects the coordinates of the N-Glycosylation Motif occurrences and adds them to their Fasta objects
-     * @param inListFasta
-     * @param UniProtDatabase
-     * @return
-     */
-    private static ArrayList<Fasta> getCoords(ArrayList<Fasta> inListFasta, ArrayList<Fasta> UniProtDatabase) {
-        ArrayList<Fasta> outListFasta = inListFasta;
-        for (int u=0; u<UniProtDatabase.size(); u++) {  //loop through the UniProtDatabase headers
-            for (int i=0; i<outListFasta.size(); i++) { //loop through the IDs from the inList
-                String dbID = UniProtDatabase.get(u).getUniProtID(); //parse the ID from the UniProtDatabase header or use the Updated altID if present
-                String inID = ""; 
-                    if (outListFasta.get(i).getAltID().isEmpty()) {
-                        inID = outListFasta.get(i).getHeader().substring(0,6);
-                    }
-                    else {
-                        inID = outListFasta.get(i).getAltID();
-                    }
-                if (dbID.equals(inID)) { //if the inList ID matches the ID from the header look for the motif and save the coordinates.
-                    outListFasta.get(i).setCoords(checkNGlycosylationMotif(UniProtDatabase.get(u).getSequence()));
-                }
-            }
-        }
-        for (int q=0; q<outListFasta.size(); q++) { //List each Fasta object's details
-            System.out.println("==========================");
-            System.out.println("header: "+outListFasta.get(q).getHeader());
-            System.out.println("altID: "+outListFasta.get(q).getAltID());
-            System.out.println("coords: "+outListFasta.get(q).getCoords());
-        }
-        return outListFasta;
     }
     
     /**
@@ -173,7 +78,7 @@ public class mprt {
         for (int i=0; i<seq.length()-3; i++) {
             String seqSub = seq.substring(i,i+4);
             if (Pattern.matches(motifRegex, seqSub)) {
-                motifCoords = motifCoords.concat((i+1)+" ");  //addig +1 as the Rosalind coordinates start with 1 instead of 0  
+                motifCoords = motifCoords.concat((i+1)+" ");  //add +1 as the Rosalind coordinates start with 1 instead of 0  
             }
         }
         return motifCoords.trim(); //return the collected coordinates (or empty) - extra spaces are trimmed
