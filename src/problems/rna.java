@@ -21,19 +21,7 @@ public class rna {
         ArrayList<String> outList = new ArrayList<>();
         
         String strIn = inList.get(0);
-        String strOut = "";
-        for (int i=0; i<strIn.length(); ++i) {
-                switch (strIn.charAt(i)) {
-                        case 'A':
-                        case 'C':
-                        case 'G':
-                                strOut = strOut + strIn.charAt(i);
-                                break;
-                        case 'T':
-                                strOut = strOut + 'U';
-                                break;
-                }
-        }
+        String strOut = inList.get(0).replaceAll("T","U");
         
         outList.add(strOut);
         return outList;

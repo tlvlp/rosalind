@@ -17,26 +17,19 @@ public class Rosalind {
         String filePathIn, filePathOut, problem;
         String slash = System.getProperty("file.separator");
         
-        //Settings =============================================================
-                      
-        //Rosalind problem code eg. revc, prot..
-        problem  = "mprt";
+        /* Rosalind problem code eg. mprot */
+        problem  = "splc";
         
-        //full path for input file
+        /* Full path for input file */
         filePathIn = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + ".txt";
-        
-        //full path for output file
+        /* Full path for output file */
         filePathOut = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + "_out.txt";
-        
-        //======================================================================        
-        
-        //parse the input file
+
+        /* Parse the input file */
         ArrayList<String> inList = FileInputParser.parseDefault(filePathIn);
-        
-        //execute the selected module
+        /* Execute the selected module */
         ArrayList<String> outList = ModuleExecuter.launch(problem, inList);
-        
-        //save the output to file
+        /* Save the output to file */
         FileOutputWriter.save(filePathOut, outList);
     }
 }
