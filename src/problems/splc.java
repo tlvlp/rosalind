@@ -15,22 +15,24 @@ public class splc {
      * @throws java.io.IOException
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
-    /* main method for the solution of the rosalind problem in the class name */
-        ArrayList<String> inListFasta = new ArrayList<>();
+        ArrayList<String> inListFasta = utils.FileInputParser.parseFastaToArrayList(inList);
         ArrayList<String> outList = new ArrayList<>();
-        inListFasta = utils.FileInputParser.parseFastaToArrayList(inList);
         outList.add(inListFasta.get(1));
+        
         /* Remove the introns */
         String collector = outList.get(0);
-        for (int i=3; i<inList.size(); i+=2) {
-            collector = collector.replaceAll(inList.get(i), "");
+        for (int i=3; i<inListFasta.size(); i+=2) {
+            collector = collector.replaceFirst(inListFasta.get(i), "");
         }
         outList.set(0, collector);
+        
         /* Transcribe the exons to RNA  */
         outList = rna.solve(outList);
-        //outlist.set(0,outlist.get(0).replaceAll("Stop",""))
+        
         /* Translate to proteine sequence */
         outList = prot.solve(outList);
+        outList.set(0,outList.get(0).replaceAll("stop","")); // replace the the original "stop" string for the stop codon
+        System.out.println(outList.get(0));
         return outList;
     }
 }

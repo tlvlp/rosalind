@@ -26,7 +26,7 @@ public class prot {
         // does not handle the stop codon!
         for (int i=0; i < dna.length()-3; i +=3 ){
                 codon = dna.substring(i,i+3);
-                proteinStr = proteinStr + Converter.getAminoAcid(codon);
+                proteinStr = proteinStr + Converter.getAminoAcid_fromRNA(codon);
         }
         
         outList.add(proteinStr);
