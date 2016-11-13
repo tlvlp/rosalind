@@ -13,8 +13,13 @@ import java.util.ArrayList;
  */
 public class DataOperations {
 
+    /**
+     * Parses the input String into an ArrayList of Strings with a given delimiter
+     * @param strIn
+     * @param delimiter
+     * @return
+     */
     public static ArrayList<String> parseByDelimiter_Str(String strIn, Character delimiter) {
-        //parses the input String into an ArrayList of Strings with a given delimiter
         ArrayList<String> outList = new ArrayList<>();
         String strColl = "";
         int listCnt = 0;
@@ -36,8 +41,13 @@ public class DataOperations {
         return outList;
     }
 
+    /**
+     * Parses the input String into an ArrayList of Integers with a given delimiter
+     * @param strIn
+     * @param delimiter
+     * @return
+     */
     public static ArrayList<Integer> parseByDelimiter_Int(String strIn, Character delimiter) {
-        //parses the input String into an ArrayList of Integers with a given delimiter
         ArrayList<Integer> outList = new ArrayList<>();
         String strColl = "";
         int listCnt = 0;
@@ -59,9 +69,15 @@ public class DataOperations {
         return outList;
     }
 
+    /**
+     * Loops through a string to find another string
+     * Returns true if a match is found, returns false at the end of the loop
+     * 
+     * @param checkStr
+     * @param baseStr
+     * @return
+     */
     public static boolean isValidSubStr(String checkStr, String baseStr) {
-        /*  loop through a string to find another string
-        returns true if a match is found, returns false at the end of the loop */
         int checkStrLength = checkStr.length();
         int baseStrLength = baseStr.length();
         for (int j = 0; j < (baseStrLength - checkStrLength + 1); j++) {
@@ -73,10 +89,13 @@ public class DataOperations {
         return false;
     }
 
+    /**
+     * Selects the last longest item of a list of strings
+     * @param longestList
+     * @return
+     */
     public static String SelectLastLongestItem(ArrayList<String> longestList) {
-        /* Selects the last longest item of a list of strings */
-        // check if the longestList contains any items at all
-        if (longestList.isEmpty()) {
+        if (longestList.isEmpty()) {    // check if the longestList contains any items at all
             System.out.println("SelectLastLongest input file is empty!");
             return "SelectLastLongest input file is empty!";
         }

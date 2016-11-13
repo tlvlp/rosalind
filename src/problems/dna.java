@@ -41,6 +41,7 @@ public class dna {
         }
         
         outList.add(a +" "+ c +" "+ g +" "+ t);
+        System.out.println(outList);
         return outList; 
     }
 }
