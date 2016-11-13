@@ -15,6 +15,7 @@ import utils.FileInputParser;
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class lcsm {
     /**
+     * Returns the longest motif shared by all sequences
      * @param inList
      * @return
      * @throws java.io.IOException

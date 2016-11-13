@@ -5,7 +5,7 @@
  */
 package problems;
 import java.util.*;
-import utils.Converter;
+import utils.BioInfOperations;
 
 /**
  * @author tlvlp
@@ -13,23 +13,18 @@ import utils.Converter;
 // class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class prot {
     /**
+     * Returns the protein strings for a list of RNA strings
+     * input: ArrayList
+     * output: ArrayList
      * @param inList
      * @return
      */
     // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
-        String dna = inList.get(0);
-        String codon = "";
-        String proteinStr = "";
-
-        // does not handle the stop codon!
-        for (int i=0; i < dna.length()-3; i +=3 ){
-                codon = dna.substring(i,i+3);
-                proteinStr = proteinStr + Converter.getAminoAcid_fromRNA(codon);
+        for (int i=0; i<inList.size(); i++) {
+            outList.add(BioInfOperations.translate_RNA_to_Prot(inList.get(i)));
         }
-        
-        outList.add(proteinStr);
         return outList;
     }
 }

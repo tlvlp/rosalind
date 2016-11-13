@@ -17,8 +17,11 @@ public class Rosalind {
         String filePathIn, filePathOut, problem;
         String slash = System.getProperty("file.separator");
         
-        /* Rosalind problem code eg. mprot */
-        problem  = "cons";
+        /* Rosalind problem code eg. mprot ===================================== */
+        
+        problem  = "orf";   // <---------------- THE FUN SWITCH
+        
+        /* ===================================================================== */
         
         /* Full path for input file */
         filePathIn = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + ".txt";

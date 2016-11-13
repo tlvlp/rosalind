@@ -10,13 +10,11 @@ import utils.Converter;
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class mrna {
     /**
      * @param inList
      * @return
      */
-    // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
        

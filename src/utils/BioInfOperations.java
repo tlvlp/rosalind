@@ -62,5 +62,23 @@ public class BioInfOperations {
         }
         return profiles;
     }
+
+    /**
+     * Returns the protein string from an RNA string
+     * input: String
+     * output: String
+     * @param rna
+     * @return
+     */
+    public static String translate_RNA_to_Prot(String rna) {
+        String codon = "";
+        String proteinStr = "";
+        // does not handle the stop codon!
+        for (int i = 0; i < rna.length() - 3; i += 3) {
+            codon = rna.substring(i, i + 3);
+            proteinStr = proteinStr + Converter.getAminoAcid_fromRNA(codon);
+        }
+        return proteinStr;
+    }
     
 }
