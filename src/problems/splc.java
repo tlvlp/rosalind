@@ -19,19 +19,20 @@ public class splc {
         ArrayList<String> outList = new ArrayList<>();
         outList.add(inListFasta.get(1));
         
-        /* Remove the introns */
+        /* Remove introns */
         String collector = outList.get(0);
         for (int i=3; i<inListFasta.size(); i+=2) {
             collector = collector.replaceFirst(inListFasta.get(i), "");
         }
         outList.set(0, collector);
         
-        /* Transcribe the exons to RNA  */
+        /* Transcribe exons to RNA  */
         outList = rna.solve(outList);
         
         /* Translate to proteine sequence */
         outList = prot.solve(outList);
         outList.set(0,outList.get(0).replaceAll("stop","")); // replace the the original "stop" string for the stop codon
+        
         System.out.println(outList.get(0));
         return outList;
     }
