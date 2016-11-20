@@ -74,11 +74,54 @@ public class BioInfOperations {
         String codon = "";
         String proteinStr = "";
         // does not handle the stop codon!
-        for (int i = 0; i < rna.length() - 3; i += 3) {
+        for (int i = 0; i < rna.length() - 2; i += 3) {
             codon = rna.substring(i, i + 3);
             proteinStr = proteinStr + Converter.getAminoAcid_fromRNA(codon);
         }
         return proteinStr;
+    }
+
+    public static String dnaBaseComplement(String strIn) {
+        String strOut = "";
+        for (int i = strIn.length() - 1; i >= 0; --i) {
+            switch (strIn.charAt(i)) {
+                case 'A':
+                    strOut = strOut + 'T';
+                    break;
+                case 'C':
+                    strOut = strOut + 'G';
+                    break;
+                case 'G':
+                    strOut = strOut + 'C';
+                    break;
+                case 'T':
+                    strOut = strOut + 'A';
+                    break;
+            }
+        }
+        return strOut;
+    }
+
+    public static ArrayList<String> readingFrames_RNAtoProt(String rnaSeq) {
+        ArrayList<String> frameList = new ArrayList<>();
+        for (int i = 0; i < rnaSeq.length() - 2; i++) {
+            String subSeq;
+            String codon;
+            String proteinStr;
+            if (rnaSeq.substring(i, i + 3).equals("AUG")) {
+                subSeq = rnaSeq.substring(i);
+                proteinStr = "";
+                for (int g = 0; g < subSeq.length() - 2; g += 3) {
+                    codon = subSeq.substring(g, g + 3);
+                    proteinStr = proteinStr + Converter.getAminoAcid_fromRNA(codon);
+                }
+                if (proteinStr.contains("stop")) {
+                    proteinStr = proteinStr.substring(0, proteinStr.indexOf("stop"));
+                    frameList.add(proteinStr);
+                }
+            }
+        }
+        return frameList;
     }
     
 }

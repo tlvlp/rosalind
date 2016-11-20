@@ -5,6 +5,7 @@
  */
 package problems;
 import java.util.*;
+import utils.BioInfOperations;
 
 /**
  * @author tlvlp
@@ -18,26 +19,11 @@ public class revc {
     // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
-        
-        String strIn = inList.get(0);
-        String strOut = "";
-        for (int i=strIn.length()-1; i>=0; --i) {
-                switch (strIn.charAt(i)) {
-                        case 'A':
-                                strOut = strOut + 'T';
-                                break;
-                        case 'C':
-                                strOut = strOut + 'G';
-                                break;
-                        case 'G':
-                                strOut = strOut + 'C';
-                                break;
-                        case 'T':
-                                strOut = strOut + 'A';
-                                break;
-                }
+        for (String i : inList) {
+            outList.add(BioInfOperations.dnaBaseComplement(i));
         }
-        outList.add(strOut);
+
         return outList;
     }
+    
 }

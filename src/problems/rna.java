@@ -9,21 +9,17 @@ import java.util.*;
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class rna {
     /**
+     * Takes a list of DNA sequences and converts them to RNA sequences
      * @param inList
      * @return
      */
-    // main method for the solution of the rosalind problem in the class name
-   
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
-        
-        String strIn = inList.get(0);
-        String strOut = inList.get(0).replaceAll("T","U");
-        
-        outList.add(strOut);
+        for (String inList1 : inList) {
+            outList.add(inList1.replaceAll("T", "U"));
+        }
         return outList;
     }
 }

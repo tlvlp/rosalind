@@ -3,7 +3,7 @@ package utils;
 public class Converter {
 	
     /**
-     * Returns the amino acid of a codon
+     * Returns the amino acid of a codon form an RNA sequence
      * @param codon
      * @return
      */
