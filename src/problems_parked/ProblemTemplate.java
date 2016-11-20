@@ -12,7 +12,6 @@ public class ProblemNameHere {
      * @return
      */
     public static ArrayList<String> solve(ArrayList<String> inList) {
-        
         ArrayList<String> outList = new ArrayList<>();
         
         

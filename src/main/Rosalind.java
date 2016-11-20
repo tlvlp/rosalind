@@ -15,18 +15,18 @@ public class Rosalind {
      */
     public static void main(String[] args) throws IOException, Exception {
         String filePathIn, filePathOut, problem;
-        String slash = System.getProperty("file.separator");
+        String l = System.getProperty("file.separator");
         
         /* Rosalind problem code eg. mprot ===================================== */
         
-        problem  = "orf";   // <---------------- THE FUN SWITCH
+        problem  = "sseq";   // <---------------- THE FUN SWITCH
         
         /* ===================================================================== */
         
         /* Full path for input file */
-        filePathIn = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + ".txt";
+        filePathIn = System.getProperty("user.home")+l+"Documents"+l+"rosalind_data"+l+"rosalind_" + problem + ".txt";
         /* Full path for output file */
-        filePathOut = System.getProperty("user.home")+slash+"Documents"+slash+"rosalind_data"+slash+"rosalind_" + problem + "_out.txt";
+        filePathOut = System.getProperty("user.home")+l+"Documents"+l+"rosalind_data"+l+"rosalind_" + problem + "_out.txt";
 
         /* Parse the input file */
         ArrayList<String> inList = FileInputParser.parseDefault(filePathIn);
