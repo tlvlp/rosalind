@@ -9,7 +9,9 @@ import java.util.*;
 public class splc {
     
     /**
-     * Solution of the Rosalind problem in the class name
+     * Takes a DNA string and a list of intron strings in fasta format
+     * Returns a spliced and translated protein string
+     * 
      * @param inList
      * @return
      * @throws java.io.IOException

@@ -12,7 +12,6 @@ import utils.FileInputParser;
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class lcsm {
     /**
      * Returns the longest motif shared by all sequences
@@ -39,7 +38,7 @@ public class lcsm {
         boolean isSubstringOfAll = false;
         //loop while finding a largest shared sequence
         while (!isSubstringOfAll) {
-            //return the last longest common substring (assuming that there are more than one with identical length)            
+            //return the last longest common substring (assuming that there is more than one with identical length)            
             longestStr = DataOperations.SelectLastLongestItem(longestList);
             //remove the string from the original list not to be picked again in the future
             longestList.remove(longestStr);

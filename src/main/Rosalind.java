@@ -19,7 +19,7 @@ public class Rosalind {
         
         /* Rosalind problem code eg. mprot ===================================== */
         
-        problem  = "sseq";   // <---------------- THE FUN SWITCH
+        problem  = "lcsq";   // <---------------- THE FUN SWITCH
         
         /* ===================================================================== */
         
