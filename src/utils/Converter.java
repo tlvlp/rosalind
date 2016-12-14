@@ -3,9 +3,10 @@ package utils;
 public class Converter {
 	
     /**
-     * Returns the amino acid of a codon form an RNA sequence
+     * Returns the amino acid of a codon form an RNA sequence.
+     * @requires An RNA string of 3 characters (codon)
+     * @return   The amino acid that is created frome the input codon (String of 1 character )
      * @param codon
-     * @return
      */
     public static String getAminoAcid_fromRNA(String codon) {
         String AminoAcid = "";
@@ -122,8 +123,10 @@ public class Converter {
 
     /**
      * Returns the number of codon variations that exist for an amino acid.
+     * It is used for calculating the number of possible DNA/RNA sequence variations for an amino acid (protein) sequence.
+     * @requires A char containing a valid amino acid single letter code
+     * @return   An integer with the number of codon variation for the given amino acid
      * @param AminoAcid
-     * @return
      */
     public static int getVarNum(char AminoAcid) {
         int varNum = 0;
@@ -194,8 +197,9 @@ public class Converter {
 
     /**
      * Returns the mass of an amino acid
+     * @requires A char containing a valid amino acid single letter code
+     * @return   A double with the mass of the given amino acid
      * @param AminoAcid
-     * @return
      */
     public static double getAminoAcidMass(char AminoAcid) {
         double mass = 0.0;

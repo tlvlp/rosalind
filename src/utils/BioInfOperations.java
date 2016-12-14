@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.io.IOException;
@@ -17,12 +12,12 @@ import java.util.Map;
 public class BioInfOperations {
 
     /**
-     * Consensus sequence (of DNA sequences in Fasta format)
-     * Returns a map containing:
+     * Returns a Map with the consensus sequence in Fasta format.
+     * @requires An ArrayList of DNA sequences in Fasta format
+     * @return   A map containing:
      *      # The consensus of the input Fasta sequences (Stored under the 'S' key)
      *      # A profile map (Stored under the 'A', 'C', 'G' and 'T' keys
      * @param inList
-     * @return
      * @throws IOException
      */
     public static Map<Character, String> consensusSeq_Map(ArrayList<String> inList) throws IOException {
@@ -64,11 +59,10 @@ public class BioInfOperations {
     }
 
     /**
-     * Returns the protein string from an RNA string
-     * input: String
-     * output: String
+     * Returns the protein(amino acid) sequence of an RNA sequence.
+     * @requires A String containing an RNA sequence
+     * @return   A String containing the Amino acid sequence that forms a protein
      * @param rna
-     * @return
      */
     public static String translate_RNA_to_Prot(String rna) {
         String codon = "";
@@ -81,6 +75,12 @@ public class BioInfOperations {
         return proteinStr;
     }
 
+    /**
+     * Returns the complementer sequence of a DNA sequence.
+     * @requires A String with a DNA sequence.
+     * @return   A String with the complementer of the original DNA sequence
+     * @param strIn
+     */
     public static String dnaBaseComplement(String strIn) {
         String strOut = "";
         for (int i = strIn.length() - 1; i >= 0; --i) {
@@ -102,6 +102,13 @@ public class BioInfOperations {
         return strOut;
     }
 
+    /**
+     * Returns all the valid protein sequences from an RNA String.
+     * @requires An RNA String
+     * @return   An ArrayList of all valid protein sequence candidates from the input.
+     *           Note that the complement String need to be processed as well to get all the valid results for a given RNA string.
+     * @param rnaSeq
+     */
     public static ArrayList<String> readingFrames_RNAtoProt(String rnaSeq) {
         ArrayList<String> frameList = new ArrayList<>();
         for (int i = 0; i < rnaSeq.length() - 2; i++) {

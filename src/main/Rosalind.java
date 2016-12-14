@@ -10,15 +10,17 @@ import java.util.*;
 public class Rosalind {
 
     /**
-     * Runs one selected Rosalind problem modul at a time.
+     * Runs one selected Rosalind problem module at a time.
      * 1. Parses an input txt file that is a problem specific dataset downloaded from Rosalind
-     * 2. Runs the parsed data through the selected problem modul.
+     * 2. Runs the parsed data through the selected problem module.
      * 3. Writes the results to an output file that can be uploaded to Rosalind for evaluation.
-     * @see http://rosalind.info/
+     * 
      * @requires problemID to be set:
-     *           problemID = classname in the problems package = ID in rosalind url = ID in input txt file name
+     *           problemID = classname in the problems package = ID in Rosalind url = ID in input txt file name
      * @requires Input txt file at filePathIn from Rosalind
      * @effects  Output txt file to filePathOut
+     * 
+     * @see http://rosalind.info/
      * @param args the command line arguments
      * @throws java.io.IOException
      */

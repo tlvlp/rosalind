@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import java.util.ArrayList;
 
 /**
- *
+ * A collection of data operations
  * @author tlvlp
  */
 public class DataOperations {
 
     /**
      * Parses the input String into an ArrayList of Strings with a given delimiter
+     * @requires A string with substrings separated by a character(delimiter)
+     * @return   The ArrayList of substrings found in the input string
      * @param strIn
      * @param delimiter
-     * @return
      */
     public static ArrayList<String> parseByDelimiter_Str(String strIn, Character delimiter) {
         ArrayList<String> outList = new ArrayList<>();
@@ -42,15 +38,15 @@ public class DataOperations {
     }
 
     /**
-     * Parses the input String into an ArrayList of Integers with a given delimiter
+     * Parses the input String into an ArrayList of Integers with a given delimiter.
+     * @requires A string containing integers separated by a character(delimiter)
+     * @return   The ArrayList of integers found in the input string
      * @param strIn
      * @param delimiter
-     * @return
      */
     public static ArrayList<Integer> parseByDelimiter_Int(String strIn, Character delimiter) {
         ArrayList<Integer> outList = new ArrayList<>();
         String strColl = "";
-        int listCnt = 0;
         int strLen = strIn.length();
         for (int i = 0; i < strLen; ++i) {
             //if reached the delimiter or the end of the string save the currently collected string to the current list item
@@ -70,12 +66,11 @@ public class DataOperations {
     }
 
     /**
-     * Loops through a string to find another string
-     * Returns true if a match is found, returns false at the end of the loop
-     * 
+     * Loops through a string(baseStr) to find another string(checkStr)
+     * @requires Two Strings
+     * @return   True if a match is found, returns false at the end of the loop
      * @param checkStr
      * @param baseStr
-     * @return
      */
     public static boolean isValidSubStr(String checkStr, String baseStr) {
         int checkStrLength = checkStr.length();
@@ -91,10 +86,11 @@ public class DataOperations {
 
     /**
      * Selects the last longest item of a list of strings
+     * @requires An ArrayList of Strings
+     * @return   One from the longest Strings of the list.
      * @param longestList
-     * @return
      */
-    public static String SelectLastLongestItem(ArrayList<String> longestList) {
+    public static String SelectOneLongestItem(ArrayList<String> longestList) {
         if (longestList.isEmpty()) {    // check if the longestList contains any items at all
             System.out.println("SelectLastLongest input file is empty!");
             return "SelectLastLongest input file is empty!";

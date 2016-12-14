@@ -39,7 +39,7 @@ public class lcsm {
         //loop while finding a largest shared sequence
         while (!isSubstringOfAll) {
             //return the last longest common substring (assuming that there is more than one with identical length)            
-            longestStr = DataOperations.SelectLastLongestItem(longestList);
+            longestStr = DataOperations.SelectOneLongestItem(longestList);
             //remove the string from the original list not to be picked again in the future
             longestList.remove(longestStr);
             //checks if the current string is the substring of the current sequence

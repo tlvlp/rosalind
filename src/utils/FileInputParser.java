@@ -10,14 +10,16 @@ import java.util.*;
 import data.*;
 
 /**
+ * A list of parsers
  * @author tlvlp
  */
 public class FileInputParser {
      
     /**
-     * Stores each line of the input file in a String Array List
+     * Stores each line of the input file in a ArrayList of Strings
+     * @requires Input txt file at the given filePath
+     * @return   ArrayList of Strings where each line of the input txt is a separate, consecutive list item.
      * @param filePath
-     * @return
      * @throws IOException
      */
     public static ArrayList<String> parseDefault(String filePath) throws IOException {
@@ -37,9 +39,10 @@ public class FileInputParser {
     }
     
     /**
-     * Parses the output of the parseDefault into an ArrayList of Strings. Every first line is a header and every second is the related sequence
+     * Parses the output of the parseDefault into an ArrayList of Strings.
+     * @requires ArrayList of Strings (the output of the default parser)
+     * @return   ArrayList of Strings where every first line is a header and every second is the related sequence
      * @param inList
-     * @return
      * @throws IOException
      */
     public static ArrayList<String> parseFastaToArrayList(ArrayList<String> inList) throws IOException {        
@@ -75,8 +78,9 @@ public class FileInputParser {
     
     /**
      * Parses the output of the parseDefault into an ArrayList of Fasta objects
+     * @requires ArrayList of Strings (the output of the default parser)
+     * @return   ArrayList of Fasta objects
      * @param inList
-     * @return
      * @throws IOException
      */
     public static ArrayList<Fasta> parseFastaToFasta(ArrayList<String> inList) throws IOException {        
