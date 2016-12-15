@@ -8,6 +8,7 @@ package utils;
 import java.io.*;
 import java.util.*;
 import data.*;
+import java.nio.file.Path;
 
 /**
  * A list of parsers
@@ -22,18 +23,14 @@ public class FileInputParser {
      * @param filePath
      * @throws IOException
      */
-    public static ArrayList<String> parseDefault(String filePath) throws IOException {
-    //
+    public static ArrayList<String> parseDefault(Path filePath) throws IOException {
         System.out.println("Parsig with: DEFAULT parser");
         System.out.println("Input file: " + filePath);
-        
         ArrayList<String> inList = new ArrayList<>();
-        //Setting the path to the given folder under the current user's home/Documents directory
-        try (final Scanner inFile = new Scanner(new FileReader(filePath))) {
-            inList = new ArrayList<>();
-            while (inFile.hasNextLine()) {
-                inList.add(inFile.nextLine());
-            }
+        Scanner inFile = new Scanner(new FileReader(filePath.toString()));
+        inList = new ArrayList<>();
+        while (inFile.hasNextLine()) {
+            inList.add(inFile.nextLine());
         }
         return inList;
     }
@@ -48,25 +45,21 @@ public class FileInputParser {
     public static ArrayList<String> parseFastaToArrayList(ArrayList<String> inList) throws IOException {        
         System.out.println("Parsig with: FASTA to ArrayList parser");
         ArrayList<String> inListProc = new ArrayList<>();
-        // copy over to the other list concatenating the multi-line sequences
-        int cnt = 0;
+        int cnt = 0;                                                            // copy over to the other list concatenating the multi-line sequences
         String collector = "";
         for (int i=0; i<inList.size(); i++) {
-            // title
-            if (inList.get(i).startsWith(">")) {
+            if (inList.get(i).startsWith(">")) {                                //get the header
                 inListProc.add(cnt, inList.get(i));
                 cnt++;
             }
-            // base sequence
-            else {
+            else {                                                              //collect the multi-line sequence into one string
                 collector = collector + inList.get(i);
-                //stop collection
-                if (i == inList.size()-1) {
+                if (i == inList.size()-1) {                                     //stop collection at the end of the input list
                     inListProc.add(cnt, collector);
                     collector = "";
                     cnt++;
                 }
-                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) {
+                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) {   //stop collection at the end of the sequence
                     inListProc.add(cnt, collector);
                     collector = "";
                     cnt++;
@@ -86,22 +79,17 @@ public class FileInputParser {
     public static ArrayList<Fasta> parseFastaToFasta(ArrayList<String> inList) throws IOException {        
         System.out.println("Parsig with: FASTA to FASTA(Object) parser");
         ArrayList<Fasta> inListFasta =  new ArrayList<>();
-        //collect the input to a list of fasta objects
         for (int i=0; i<inList.size();) {
             Fasta thisFasta = new Fasta();
-            //add the header
-            thisFasta.setHeader(inList.get(i));
+            thisFasta.setHeader(inList.get(i));                                              //get the header
             i++;
-            //collect the sequence part
             boolean breaker = true;
-            while (breaker){
-                //break out of the collection loop if at the end of the sequence or the whole input list or 
-                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) breaker = false;
-                if (i == inList.size()-1) breaker = false;
+            while (breaker){                                                                 //collect the multi-line sequence into one string
+                if (i < inList.size()-1 && inList.get(i+1).startsWith(">")) breaker = false; //stop collection at the end of the sequence
+                if (i == inList.size()-1) breaker = false;                                   //stop collection at the end of the input list
                 thisFasta.sequenceAdd(inList.get(i));
                 i++;
             }
-            //save Fasta to the list
             inListFasta.add(thisFasta); 
         }
         return inListFasta;
