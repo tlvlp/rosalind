@@ -8,11 +8,11 @@ import java.util.*;
 public class fib {
     
     /**
-     * Fibonacci's rabbits
+     * Fibonacci rabbits
      * @see http://rosalind.info/problems/fib
      * @param inList
      * @requires inList with one string containing two integers
-     * @return   outList
+     * @return   outList with a string containing a long: The number of rabbit pairs after the given number of months
      */
     public static ArrayList<String> solve(ArrayList<String> inList) {	
        ArrayList<String> outList = new ArrayList<>();

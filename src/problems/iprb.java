@@ -1,24 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package problems_parked;
+package problems;
 import java.util.*;
 import utils.DataOperations;
-import utils.FileInputParser;
 
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class iprb {
-    public static String parser = "default";
+    
     /**
+     * Returns the probability of the offspring will display a dominant phenotype
+     * 
+     * 
+     * 
+     *             !!! IN PROGRESS !!!
+     * 
+     * 
+     * 
+     * @see http://rosalind.info/problems/iprb/
      * @param inList
-     * @return
+     * @requires 
+     * @return   
      */
-    // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         

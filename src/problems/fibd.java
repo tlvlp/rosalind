@@ -1,22 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package problems_parked;
+package problems;
+
 import java.util.*;
 
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class fibd {
+    
     /**
-     * Mortal Fibonacci rabbits. All rabbits must perish
+     * Mortal Fibonacci rabbits
+     * http://rosalind.info/problems/fibd/
      * @param inList
-     * @return
+     * @requires inList with one string containing two integers
+     * @return   outList with a string containing a long: The number of rabbit pairs after the given number of months
      */
-    public static ArrayList<String> solve(ArrayList<String> inList) {	
+    public static ArrayList<String> solve(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<>();
         
         int sep = inList.get(0).indexOf(" ");
@@ -40,16 +38,18 @@ public class fibd {
         outList.add(Long.toString(pop.get(pop.size()-1)));
         return outList;
     }
-    
-    
-    /*
-    Solution found here but still can't figure out what's going on.
-    https://github.com/niemasd/Algorithm-Problem-Solutions/blob/master/ROSALIND%20Solutions/Bioinformatics%20Stronghold/014%20-%20FIBD%20-%20Mortal%20Fibonacci%20Rabbits/MortalFibonacciRabbits.java
-    */
+
+    /**
+     * Mortal Fibonacci rabbits
+     * Solution found here but still can't figure out what's going on:
+     * @see https://github.com/niemasd/Algorithm-Problem-Solutions/blob/master/ROSALIND%20Solutions/Bioinformatics%20Stronghold/014%20-%20FIBD%20-%20Mortal%20Fibonacci%20Rabbits/MortalFibonacciRabbits.java
+     * @param months
+     * @param maxlifespan
+     * @return
+     */
     public static long mortalFibRabbits( int months, int maxlifespan ) {
         long[] arr = new long[maxlifespan];
         arr[maxlifespan-1] = 1;
-
         System.out.println("arr start: "+Arrays.toString(arr));
         System.out.println("=======================");
         for(int generation = 1; generation < months; ++generation) {
@@ -71,7 +71,6 @@ public class fibd {
           System.out.println("=======================");
 
         }
-
         System.out.println("arr finish: "+Arrays.toString(arr));
         long sum = 0;
         for(int i = 0; i < arr.length; ++i) {
