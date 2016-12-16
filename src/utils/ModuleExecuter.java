@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * @author tlvlp
  */
 public class ModuleExecuter {
+    
     /**
      * Invokes a problem module using reflection and returns the results to main.
      * @requires A valid problemID in String format
@@ -19,8 +20,8 @@ public class ModuleExecuter {
      */
     public static ArrayList<String> launch(String problemID, ArrayList<String> inList) throws Exception {
         ArrayList<String> outList = new ArrayList<>();
-        String aClass = "problems." + problemID;   //the package name is hardcoded 
-        String aMethod = "solve";                  //this is the method for all the problems classes
+        String aClass = "problems." + problemID;
+        String aMethod = "solve";                                                   //the method name for all the problems classes are the same
         Class[] parameterTypes = new Class[] {java.util.ArrayList.class};
         Object[] arguments = new Object[] {inList};
         Class thisClass = Class.forName(aClass);

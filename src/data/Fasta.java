@@ -5,7 +5,7 @@ package data;
  * @author tlvlp
  */
 public class Fasta {
-  
+    
     private String header;      //fasta header
     private String sequence;    //fasta sequence
     private String coords;      //eg. coordinates of a given sub sequence

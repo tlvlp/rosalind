@@ -8,6 +8,7 @@ import java.util.*;
  * @author tlvlp
  */
 public class FileOutputWriter {
+    
     /**
      * Writes the contents of an ArrayList of Strings to a txt file.
      * @requires A valid filePath where the output txt can be saved
