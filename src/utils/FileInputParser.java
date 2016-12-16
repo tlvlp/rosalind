@@ -25,7 +25,7 @@ public class FileInputParser {
      */
     public static ArrayList<String> parseDefault(Path filePath) throws IOException {
         System.out.println("Parsig with: DEFAULT parser");
-        System.out.println("Input file: " + filePath);
+        System.out.println("Input file:  " + filePath);
         ArrayList<String> inList = new ArrayList<>();
         Scanner inFile = new Scanner(new FileReader(filePath.toString()));
         inList = new ArrayList<>();

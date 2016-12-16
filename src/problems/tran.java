@@ -6,11 +6,11 @@ import java.util.*;
  * @author tlvlp
  */
 public class tran {
-
     /**
-     * Returns the transition/transition ratio of two DNA base sequence
+     * Returns the transition/transition ratio of two DNA base sequences
      * @param inList
-     * @return
+     * @requires inList with two DNA strings of equal length in Fasta format(default parser)
+     * @return   outList with one double denoting the transition/transversion ratio 
      * @throws java.io.IOException
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {

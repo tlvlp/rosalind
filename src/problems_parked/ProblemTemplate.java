@@ -4,12 +4,14 @@ import java.util.*;
 /**
  * @author tlvlp
  */
-public class ProblemNameHere {
-
+public class PROBLEMID {
+    
     /**
-     * Solution of the Rosalind problem in the class name
+     * TITLE
+     * @see http://rosalind.info/problems/PROBLEMID
      * @param inList
-     * @return
+     * @requires 
+     * @return   
      */
     public static ArrayList<String> solve(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<>();

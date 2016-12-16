@@ -1,37 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package problems;
 import java.util.*;
 
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class subs {
+    
     /**
+     * Returns the substring positions
+     * @see http://rosalind.info/problems/subs
      * @param inList
-     * @return
+     * @requires inList with two DNA strings
+     * @return   outList with all the locations (space separated integers) of the second string as a substring of the first.
      */
-    // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
-        
         String dna = inList.get(0);
         String dnaSub = inList.get(1);
         int dnaSubLen = dnaSub.length();
         String dnaSubPos = "";
-
         for (int i=0; i < dna.length()-dnaSubLen; ++i) {
-                if (dna.substring(i, i + dnaSubLen).equals(dnaSub)) {
-                        // counting with i+1 as the first pos is 1 according to the spec. 
-                        dnaSubPos = dnaSubPos + " " + (i+1);
-                        System.out.println(dnaSubPos); //debug
-                }
+            if (dna.substring(i, i + dnaSubLen).equals(dnaSub)) {
+                dnaSubPos = dnaSubPos + " " + (i+1);                //the first pos is 1 according to the spec.
+            }
         }
-        
         outList.add(dnaSubPos);
         return outList;
     }

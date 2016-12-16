@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package problems;
 import java.util.*;
 import utils.BioInfOperations;
@@ -10,19 +5,20 @@ import utils.BioInfOperations;
 /**
  * @author tlvlp
  */
-// class name should correspond to the rosalind problem code eg. FIB, GC, DNA..
 public class revc {
+    
     /**
+     * Returns the reverse complements of a list of DNA sequences 
+     * @see http://rosalind.info/problems/revc
      * @param inList
-     * @return
+     * @requires inList with a list of DNA sequences
+     * @return   outList a list of reverse complement DNA sequences
      */
-    // main method for the solution of the rosalind problem in the class name
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         for (String i : inList) {
             outList.add(BioInfOperations.dnaBaseComplement(i));
         }
-
         return outList;
     }
     

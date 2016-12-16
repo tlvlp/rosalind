@@ -6,13 +6,13 @@ import java.util.*;
  * @author tlvlp
  */
 public class sseq {
-
+    
     /**
-     * Takes two DNA strings in fasta format 
-     * Returns the subsequence positions of the second string inside the first string
-     * 
+     * Returns the subsequence positions
+     * @see http://rosalind.info/problems/sseq
      * @param inList
-     * @return
+     * @requires inList with two DNA strings in Fasta format
+     * @return   outList with all the locations (space separated integers) of the second string's characters as a subsequence of the first. 
      * @throws java.io.IOException
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
@@ -35,7 +35,6 @@ public class sseq {
         }
         coords = coords.trim();
         outList.add(coords);
-        System.out.println(outList);
         return outList;
     }
 }

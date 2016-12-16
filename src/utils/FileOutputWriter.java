@@ -18,11 +18,11 @@ public class FileOutputWriter {
      * @throws IOException
      */
     public static void save(Path filePath, ArrayList<String> outList) throws IOException {   
-        try (PrintWriter outFile = new PrintWriter(new FileWriter(filePath.toString()))) {
-            for (int i=0; i<outList.size(); i++) {
-                if (i<outList.size()-1) outFile.println(outList.get(i)); // if present: remove empty last line
-                else outFile.print(outList.get(i));
-            }
+        PrintWriter outFile = new PrintWriter(new FileWriter(filePath.toString()));
+        for (int i=0; i<outList.size(); i++) {
+            if (i<outList.size()-1) outFile.println(outList.get(i)); // if present: remove empty last line
+            else outFile.print(outList.get(i));
         }
+        System.out.println("Output file: " + filePath.toString());
     }
 }
