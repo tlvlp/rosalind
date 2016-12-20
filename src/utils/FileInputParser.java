@@ -16,16 +16,20 @@ public class FileInputParser {
      * @requires Input txt file at the given filePath
      * @return   ArrayList of Strings where each line of the input txt is a separate, consecutive list item.
      * @param filePath
-     * @throws IOException
      */
-    public static ArrayList<String> parseDefault(Path filePath) throws IOException {
-        System.out.println("Parsig with: DEFAULT parser");
-        System.out.println("Input file:  " + filePath);
+    public static ArrayList<String> parseDefault(Path filePath) {
         ArrayList<String> inList = new ArrayList<>();
-        Scanner inFile = new Scanner(new FileReader(filePath.toString()));
-        inList = new ArrayList<>();
-        while (inFile.hasNextLine()) {
-            inList.add(inFile.nextLine());
+        try {
+            System.out.println("Parsig input file with: DEFAULT parser");
+            Scanner inFile = new Scanner(new FileReader(filePath.toString()));
+            System.out.println("Input file:  " + filePath);                     //replaced by an error message if the file is not found.
+            inList = new ArrayList<>();
+            while (inFile.hasNextLine()) {
+                inList.add(inFile.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Input file not found on the following path:\n"+filePath+"\nTerminating run!");
+            System.exit(0);
         }
         return inList;
     }
@@ -35,9 +39,8 @@ public class FileInputParser {
      * @requires ArrayList of Strings (the output of the default parser)
      * @return   ArrayList of Strings where every first line is a header and every second is the related sequence
      * @param inList
-     * @throws IOException
      */
-    public static ArrayList<String> parseFastaToArrayList(ArrayList<String> inList) throws IOException {        
+    public static ArrayList<String> parseFastaToArrayList(ArrayList<String> inList) {        
         System.out.println("Parsig with: FASTA to ArrayList parser");
         ArrayList<String> inListProc = new ArrayList<>();
         int cnt = 0;                                                            // copy over to the other list concatenating the multi-line sequences
@@ -69,9 +72,8 @@ public class FileInputParser {
      * @requires ArrayList of Strings (the output of the default parser)
      * @return   ArrayList of Fasta objects
      * @param inList
-     * @throws IOException
      */
-    public static ArrayList<Fasta> parseFastaToFasta(ArrayList<String> inList) throws IOException {        
+    public static ArrayList<Fasta> parseFastaToFasta(ArrayList<String> inList) {        
         System.out.println("Parsig with: FASTA to FASTA(Object) parser");
         ArrayList<Fasta> inListFasta =  new ArrayList<>();
         for (int i=0; i<inList.size();) {
