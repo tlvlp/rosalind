@@ -1,7 +1,6 @@
 package com.problems;
 import java.util.*;
-import com.utils.parse.StringToArrayListOfInts;
-import com.utils.parse.StringToArrayListOfStrings;
+import com.utils.parser.*;
 
 /**
  * @author tlvlp
@@ -24,14 +23,15 @@ public class iprb {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
-        
-        ArrayList<String> inListParsed = StringToArrayListOfStrings.parse(inList.get(0), ' ');
+        /*
+        ArrayList<String> inListParsed = StringToArrayListOfStrings.parse(inList.get(0), " ");
         System.out.println(inListParsed);
         
-        ArrayList<Integer> inListParsedInt = StringToArrayListOfInts.parse(inList.get(0), ' ');
+        ArrayList<Integer> inListParsedInt = StringToArrayListOfInts.parse(inList.get(0), " ");
         System.out.println(inListParsedInt);
         
         System.out.println(outList);
+        */
         return outList;
     }
 }

@@ -1,6 +1,6 @@
 package com.utils.bio;
 
-import com.utils.convert.AminoAcidFromRNA;
+import com.utils.converter.AminoAcidFromRNA;
 
 /**
  * @author tlvlp

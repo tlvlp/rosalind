@@ -1,7 +1,7 @@
 package com.problems;
 
 import java.util.*;
-import com.utils.convert.AminoAcidMass;
+import com.utils.converter.AminoAcidMass;
 
 /**
  * @author tlvlp

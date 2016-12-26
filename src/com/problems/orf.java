@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import com.utils.bio.AllValidProteinSequencesFromRNA;
 import com.utils.bio.DNABaseComplement;
-import com.utils.parse.InputFastaToArraylist;
+import com.utils.parser.InputFastaToArraylist;
 
 /**
  * @author tlvlp

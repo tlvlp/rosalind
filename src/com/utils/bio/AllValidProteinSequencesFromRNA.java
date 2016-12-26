@@ -1,7 +1,7 @@
 package com.utils.bio;
 
 import java.util.ArrayList;
-import com.utils.convert.AminoAcidFromRNA;
+import com.utils.converter.AminoAcidFromRNA;
 
 /**
  * @author tlvlp

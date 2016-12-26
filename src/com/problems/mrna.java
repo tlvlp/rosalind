@@ -1,7 +1,7 @@
 package com.problems;
 
 import java.util.*;
-import com.utils.convert.AminoAcidVarNum;
+import com.utils.converter.AminoAcidVarNum;
 
 /**
  * @author tlvlp

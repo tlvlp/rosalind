@@ -28,7 +28,7 @@ public class Rosalind {
     public static void main(String[] args) throws Exception {
         //======================================================================
         
-        String problemID  = "dna";   // <---------------- THE FUN SWITCH
+        String problemID  = "test";   // <---------------- THE FUN SWITCH
         
         //======================================================================
         

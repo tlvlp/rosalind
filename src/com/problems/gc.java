@@ -3,7 +3,7 @@ package com.problems;
 import java.io.IOException;
 import java.util.*;
 import com.utils.bio.GCContent;
-import com.utils.parse.InputFastaToArraylist;
+import com.utils.parser.InputFastaToArraylist;
 
 /**
  * @author tlvlp

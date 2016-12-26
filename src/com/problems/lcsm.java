@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import com.utils.data.SubstringValidation;
 import com.utils.data.SelectOneLongestStringFromList;
-import com.utils.parse.InputFastaToArraylist;
+import com.utils.parser.InputFastaToArraylist;
 
 /**
  * @author tlvlp

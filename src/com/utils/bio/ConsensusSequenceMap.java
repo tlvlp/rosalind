@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import com.utils.parse.InputFastaToArraylist;
+import com.utils.parser.InputFastaToArraylist;
 
 /**
  * @author tlvlp
