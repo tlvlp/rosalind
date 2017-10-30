@@ -25,14 +25,14 @@ public class Rosalind {
      * @param args the command line arguments
      * @throws Exception
      * @requires problemID to be set directly in this class:
-     *           problemID = class name in the com.problems package
+     *           problemID = class name in the problems package
      *           = ID in Rosalind url
      *           = ID in input txt file name
      * @requires Input txt file at filePathIn from Rosalind
      */
     public static void main(String[] args) throws Exception {
         
-        String problemID  = "dna";   // <---------------- THE FUN SWITCH
+        String problemID  = "lcsq";   // <---------------- THE FUN SWITCH
         
         //Full path for input file
         Path filePathIn = Paths.get(System.getProperty("user.home") 

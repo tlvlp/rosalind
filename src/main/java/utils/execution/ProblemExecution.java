@@ -12,7 +12,7 @@ public class ProblemExecution {
      * Executes a problem module using reflection
      * @throws Exception
      * @requires problemID to be set directly in this class:
-     *           problemID = class name in the com.problems package
+     *           problemID = class name in the problems package
      *           = ID in Rosalind url
      *           = ID in input txt file name
      * @requires An ArrayList (inList) with the parsed contents of the input File
@@ -22,7 +22,7 @@ public class ProblemExecution {
      */
     public static ArrayList<String> run(String problemID, ArrayList<String> inList) throws Exception {
         try {
-            String aClass = "com.problems." + problemID;
+            String aClass = "problems." + problemID;
             String aMethod = "solve";                                                   //the method name for all the problems classes are the same
             Class[] parameterTypes = new Class[] {ArrayList.class};
             Object[] arguments = new Object[] {inList};
