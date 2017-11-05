@@ -32,7 +32,7 @@ public class Rosalind {
      */
     public static void main(String[] args) throws Exception {
         
-        String problemID  = "lcsq";   // <---------------- THE FUN SWITCH
+        String problemID  = "grph";   // <---------------- THE FUN SWITCH
         
         //Full path for input file
         Path filePathIn = Paths.get(System.getProperty("user.home") 
