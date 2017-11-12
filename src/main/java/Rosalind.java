@@ -1,10 +1,9 @@
-package main;
-
 import utils.execution.ProblemExecution;
 import utils.file.InputReader;
 import utils.file.OutputWriter;
 import java.nio.file.*;
 import java.util.*;
+import com.typesafe.config.*;
 
 /**
  * @author tlvlp
@@ -31,8 +30,10 @@ public class Rosalind {
      * @requires Input txt file at filePathIn from Rosalind
      */
     public static void main(String[] args) throws Exception {
-        
-        String problemID  = "grph";   // <---------------- THE FUN SWITCH
+
+        //Read problem id from application.conf
+        Config conf = ConfigFactory.load();
+        String problemID  = conf.getString("rosalind.problem");
         
         //Full path for input file
         Path filePathIn = Paths.get(System.getProperty("user.home") 
@@ -40,20 +41,19 @@ public class Rosalind {
         //Full path for output file
         Path filePathOut = Paths.get(System.getProperty("user.home") 
                + "/Documents/rosalind_data/rosalind_" + problemID + "_out.txt");
-        
-        //Main workflow
+
         System.out.println("Run starting with problem module: [ " 
                            + problemID+" ]");
         
         //Read the input file
         ArrayList<String> inList = InputReader.read(filePathIn);
-        System.out.println("Processing input..");
+        System.out.println("Reading input..");
         
-        //Execute the selected problem module
+        //Execute the selected problem
         ArrayList<String> outList = ProblemExecution.run(problemID, inList);
         System.out.println("Writing output to file");
         
-        //Save the output to file
+        //Write the output to file
         OutputWriter.save(filePathOut, outList);                                       
         System.out.println("Run complete.");
     }
