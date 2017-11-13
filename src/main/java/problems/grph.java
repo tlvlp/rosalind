@@ -14,11 +14,12 @@ public class grph {
         for(Fasta tail:inListFasta){
             String tailSeq = tail.getSequence();
             System.out.println("===============================================================================");
-            System.out.println("*************** tailSeq: "+tailSeq);
+            System.out.println("Tail sequence: "+tailSeq);
+            System.out.println("===================================");
             if (tailSeq.length()<=2) {continue;}            //skip if shorter than 3bp
             for(Fasta head:inListFasta){
                 String headSeq = head.getSequence();
-                System.out.println("headSeq: "+headSeq);
+                System.out.println("Head sequence: "+headSeq);
                 if (headSeq.length()<=2) {continue;}        //skip if shorter than 3bp
                 if (tailSeq.equals(headSeq)){
                     System.out.println("SKIPPING: tailSeq = headSeq "); continue;}    //skip equal sequences

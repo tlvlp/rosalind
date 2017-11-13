@@ -23,19 +23,19 @@ public class ProblemExecution {
     public static ArrayList<String> run(String problemID, ArrayList<String> inList) throws Exception {
         try {
             String aClass = "problems." + problemID;
-            String aMethod = "solve";                                                   //the method name for all the problems classes are the same
+            String aMethod = "solve";                        //the method name for all the problems classes are the same
             Class[] parameterTypes = new Class[] {ArrayList.class};
             Object[] arguments = new Object[] {inList};
             Class thisClass = Class.forName(aClass);
             Object iClass = thisClass.newInstance();                                    //get the instance
             Method thisMethod = thisClass.getDeclaredMethod(aMethod, parameterTypes);   //get the method
             return (ArrayList<String>) thisMethod.invoke(iClass, arguments);            //call the method
-        } catch (Exception e) {                                                         //terminating run for any exception
+        } catch (Exception e) {                                                      //terminating run for any exception
             System.err.println("Failed to execute the problem module for the following reason: "
                                +e.toString()+
                                "\nTerminating run!");
             System.exit(0);
         }
-        return inList;                                                                  //this return statement is never used - still looking for a more elegant solution
+        return inList;                 //this return statement is never used - still looking for a more elegant solution
     }
 }  
