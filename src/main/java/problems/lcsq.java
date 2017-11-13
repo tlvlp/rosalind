@@ -3,7 +3,7 @@ package problems;
 import java.io.IOException;
 import java.util.*;
 import utils.data.LongestCommonSubsequence;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -20,7 +20,7 @@ public class lcsq {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         outList.add(LongestCommonSubsequence.get(inListFasta.get(1), inListFasta.get(3)));
         return outList;
     }

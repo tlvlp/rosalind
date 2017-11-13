@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -27,7 +27,7 @@ public class ConsensusSequenceMap {
         Right now it is too specific to the "cons" problem.
         
         */
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         Map<Character, String> profiles = new HashMap<>(); //String collectors
         profiles.put('S', ""); // S for the consensus String
         profiles.put('A', "A:");

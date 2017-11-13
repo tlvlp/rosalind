@@ -2,7 +2,7 @@ package problems;
 
 import java.io.IOException;
 import java.util.*;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -19,7 +19,7 @@ public class sseq {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         String mainSeq = inListFasta.get(1);
         String subSeq = inListFasta.get(3);
         String coords = "";

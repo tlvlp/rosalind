@@ -1,12 +1,16 @@
 package utils.parser;
 
 import java.util.ArrayList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.custom_data_types.Fasta;
 
 /**
  * @author tlvlp
  */
-public class InputFastaToFastaObjects {
+public class ParseToFastaObjects {
+    private static final Logger log = LogManager.getLogger(ParseToFastaObjects.class);
 
     /**
      * Parses the output of the default parser to an ArrayList of Fasta objects.
@@ -16,7 +20,7 @@ public class InputFastaToFastaObjects {
      * @param inList
      */
     public static ArrayList<Fasta> parse(ArrayList<String> inList) {
-        System.out.println("Parsig with: FASTA to FASTA(Object) parser");
+        log.info("Parsig input to FASTA objects");
         ArrayList<Fasta> inListFasta = new ArrayList<>();
         for (int i = 0; i < inList.size();) {
             Fasta thisFasta = new Fasta();

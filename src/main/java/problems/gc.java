@@ -3,7 +3,7 @@ package problems;
 import java.io.IOException;
 import java.util.*;
 import utils.bio.GCContent;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -20,7 +20,7 @@ public class gc {
      * @throws IOException
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {	
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         double currentCnt;
         double largestCnt = 0.0;
         int largestCntID = 0;

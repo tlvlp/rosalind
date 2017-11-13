@@ -2,7 +2,7 @@ package problems;
 
 import java.io.IOException;
 import java.util.*;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -18,7 +18,7 @@ public class splc {
      * @throws IOException
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         ArrayList<String> outList = new ArrayList<>();
         outList.add(inListFasta.get(1));
         String collector = outList.get(0);                                  // Remove introns

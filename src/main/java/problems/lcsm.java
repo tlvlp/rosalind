@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import utils.data.SubstringValidation;
 import utils.data.SelectOneLongestStringFromList;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -21,7 +21,7 @@ public class lcsm {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);  //parse input to a fasta compatible format
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);  //parse input to a fasta compatible format
         ArrayList<String> longestList = new ArrayList<>();                              //create a list for the longestList strings and add the first fasta sequence
         longestList = CompareFirstTwoSequence(inListFasta.get(1), inListFasta.get(3));  //collect the common subset of the previous longestList substring and the next full sequence
         String longestStr = "";

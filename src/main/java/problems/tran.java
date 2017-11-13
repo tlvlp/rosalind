@@ -2,7 +2,7 @@ package problems;
 
 import java.io.IOException;
 import java.util.*;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -18,7 +18,7 @@ public class tran {
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         String seq1 = inListFasta.get(1);
         String seq2 = inListFasta.get(3);
         

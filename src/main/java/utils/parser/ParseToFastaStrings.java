@@ -1,11 +1,16 @@
 package utils.parser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 
 /**
  * @author tlvlp
  */
-public class InputFastaToArraylist {
+public class ParseToFastaStrings {
+    private static final Logger log = LogManager.getLogger(ParseToFastaStrings.class);
+
 
     /**
      * Parses the output of the default parser to an ArrayList of Strings.
@@ -16,7 +21,7 @@ public class InputFastaToArraylist {
      * @param inList
      */
     public static ArrayList<String> parse(ArrayList<String> inList) {
-        System.out.println("Parsig with: FASTA to ArrayList parser");
+        log.info("Parsig input to FASTA strings");
         ArrayList<String> inListProc = new ArrayList<>();
         int cnt = 0;
         String collector = "";

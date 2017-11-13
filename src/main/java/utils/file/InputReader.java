@@ -1,5 +1,8 @@
 package utils.file;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.util.*;
 import java.nio.file.Path;
@@ -8,6 +11,7 @@ import java.nio.file.Path;
  * @author tlvlp
  */
 public class InputReader {
+    private static final Logger log = LogManager.getLogger(InputReader.class);
      
     /**
      * Stores each line of the input file in a ArrayList of Strings.
@@ -20,16 +24,15 @@ public class InputReader {
     public static ArrayList<String> read(Path filePath) {
         ArrayList<String> inList = new ArrayList<>();
         try {
-            System.out.println("Parsig input file with: DEFAULT parser");
+            log.info("Parsig input file: " + filePath);
             Scanner inFile = new Scanner(new FileReader(filePath.toString()));
-            System.out.println("Input file:  " + filePath);  
             inList = new ArrayList<>();
             while (inFile.hasNextLine()) {
                 inList.add(inFile.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.err.println("Input file not found on the following path:"
-                    + "\n"+filePath+"\nTerminating run!");
+            log.error("Input file not found on the following path:"
+                    + "\n"+filePath+"\nTerminating run!",e);
             System.exit(0);
         }
         return inList;

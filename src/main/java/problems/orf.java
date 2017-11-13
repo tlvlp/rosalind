@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 import utils.bio.AllValidProteinSequencesFromRNA;
 import utils.bio.DNABaseComplement;
-import utils.parser.InputFastaToArraylist;
+import utils.parser.ParseToFastaStrings;
 
 /**
  * @author tlvlp
@@ -22,7 +22,7 @@ public class orf {
      */
     public static ArrayList<String> solve(ArrayList<String> inList) throws IOException {
         ArrayList<String> outList = new ArrayList<>();
-        ArrayList<String> inListFasta = InputFastaToArraylist.parse(inList);
+        ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         inListFasta.remove(0);                                                              //Remove the fasta header        
         inListFasta.add(DNABaseComplement.dnaBaseComplement(inListFasta.get(0)));            //Add complement string                
         inListFasta = rna.solve(inListFasta);                                               //Transcribe exons to RNA

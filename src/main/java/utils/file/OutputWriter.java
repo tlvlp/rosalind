@@ -1,5 +1,8 @@
 package utils.file;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.util.*;
@@ -8,6 +11,7 @@ import java.util.*;
  * @author tlvlp
  */
 public class OutputWriter {
+    private static final Logger log = LogManager.getLogger(OutputWriter.class);
     
     /**
      * Writes the contents of an ArrayList of Strings to a txt file.
@@ -18,7 +22,8 @@ public class OutputWriter {
      * @param filePath
      * @param outList
      */
-    public static void save(Path filePath, ArrayList<String> outList) {  
+    public static void save(Path filePath, ArrayList<String> outList) {
+        log.info("Writing output file: " + filePath.toString());
         try (PrintWriter outFile = 
                 new PrintWriter(new FileWriter(filePath.toString()))) {
             for (int i=0; i<outList.size(); i++) {
@@ -27,14 +32,13 @@ public class OutputWriter {
                 else outFile.print(outList.get(i));
             }
         } catch (IOException e) {
-            System.err.println("Failed to write the output file "
+            log.error("Failed to write the output file "
                                + "to the following path: "
                                +filePath
                                +"\nReason: "
                                +e.getMessage()
-                               +"\nTerminating run!");
+                               +"\nTerminating run!", e);
             System.exit(0);
         }
-        System.out.println("Output file: " + filePath.toString());
     }
 }

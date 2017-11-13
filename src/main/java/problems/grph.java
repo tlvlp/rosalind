@@ -1,30 +1,33 @@
 package problems;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.custom_data_types.Fasta;
-import utils.parser.InputFastaToFastaObjects;
+import utils.parser.ParseToFastaObjects;
 
 import java.util.ArrayList;
 
 public class grph {
+    private static final Logger log = LogManager.getLogger(grph.class);
     public static ArrayList<String> solve(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<>();
 
 
-        ArrayList<Fasta> inListFasta = InputFastaToFastaObjects.parse(inList);
+        ArrayList<Fasta> inListFasta = ParseToFastaObjects.parse(inList);
         for(Fasta tail:inListFasta){
             String tailSeq = tail.getSequence();
-            System.out.println("===============================================================================");
-            System.out.println("Tail sequence: "+tailSeq);
-            System.out.println("===================================");
+            log.debug("===============================================================================");
+            log.debug("Tail sequence: "+tailSeq);
+            log.debug("===================================");
             if (tailSeq.length()<=2) {continue;}            //skip if shorter than 3bp
             for(Fasta head:inListFasta){
                 String headSeq = head.getSequence();
-                System.out.println("Head sequence: "+headSeq);
+                log.debug("Head sequence: "+headSeq);
                 if (headSeq.length()<=2) {continue;}        //skip if shorter than 3bp
                 if (tailSeq.equals(headSeq)){
-                    System.out.println("SKIPPING: tailSeq = headSeq "); continue;}    //skip equal sequences
+                    log.debug("SKIPPING: tailSeq = headSeq "); continue;}    //skip equal sequences
                 if (tailSeq.endsWith(headSeq.substring(0,3))) { //keep if overlaps by at least 3bp
-                    System.out.println("MATCH: overlap found for:"+ tail.getHeader().substring(1) + " " + head.getHeader().substring(1));
+                    log.debug("MATCH: overlap found for:"+ tail.getHeader().substring(1) + " " + head.getHeader().substring(1));
                     String adjacentVertices = tail.getHeader().substring(1) + " " + head.getHeader().substring(1);
                     outList.add(adjacentVertices);
                 }

@@ -1,14 +1,18 @@
+import sun.rmi.runtime.Log;
 import utils.execution.ProblemExecution;
 import utils.file.InputReader;
 import utils.file.OutputWriter;
 import java.nio.file.*;
 import java.util.*;
 import com.typesafe.config.*;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * @author tlvlp
  */
 public class Rosalind {
+    private static final Logger log = LogManager.getLogger(Rosalind.class);
 
     /**
      * Runs one selected Rosalind problem module at a time.
@@ -23,22 +27,19 @@ public class Rosalind {
      *    that can be uploaded to Rosalind for evaluation.
      */
     public static void main(String[] args) throws Exception {
-
         //Read problem id from application.conf
         Config conf = ConfigFactory.load();
         String problemID  = conf.getString("rosalind.problem_id");
+        log.info("Config: Rosalind problem: " + problemID);
+        log.info("Config: Input file path: "+conf.getString("rosalind.input_path"));
+        log.info("Config: Output file path: "+conf.getString("rosalind.output_path"));
 
         Path filePathIn, filePathOut;
-
-        System.out.println("inpath: "+conf.getString("rosalind.input_path"));
-        System.out.println("outpath: "+conf.getString("rosalind.output_path"));
-        
         //Input path
         if(conf.getString("rosalind.input_path").equals("default")) {
             filePathIn = Paths.get(System.getProperty("user.home")
                     + "/Documents/rosalind_data/rosalind_" + problemID + ".txt");
         } else {filePathIn = Paths.get(conf.getString("rosalind.input_path"));}
-
 
         //Output path
         if(conf.getString("rosalind.output_path").equals("default")) {
@@ -46,20 +47,16 @@ public class Rosalind {
                     + "/Documents/rosalind_data/rosalind_" + problemID + "_out.txt");
         } else {filePathOut = Paths.get(conf.getString("rosalind.output_path"));}
 
-
-        System.out.println("Run starting with problem module: [ " 
-                           + problemID+" ]");
-        
         //Read input file
+        log.info("Reading input");
         ArrayList<String> inList = InputReader.read(filePathIn);
-        System.out.println("Reading input..");
         
         //Execute selected problem
+        log.info("Running module: " + problemID);
         ArrayList<String> outList = ProblemExecution.run(problemID, inList);
-        System.out.println("Writing output to file");
         
         //Write output to file
-        OutputWriter.save(filePathOut, outList);                                       
-        System.out.println("Run complete.");
+        OutputWriter.save(filePathOut, outList);
+        log.info("Run complete");
     }
 }
