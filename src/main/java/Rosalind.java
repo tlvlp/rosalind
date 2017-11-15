@@ -1,4 +1,4 @@
-import sun.rmi.runtime.Log;
+
 import utils.execution.ProblemExecution;
 import utils.file.InputReader;
 import utils.file.OutputWriter;
@@ -38,13 +38,12 @@ public class Rosalind {
         //Input path
         if(conf.getString("rosalind.input_path").equals("default")) {
             filePathIn = Paths.get(System.getProperty("user.home")
-                    + "/Documents/rosalind_data/rosalind_" + problemID + ".txt");
+                    + "/Documents/rosalind_" + problemID + ".txt");
         } else {filePathIn = Paths.get(conf.getString("rosalind.input_path"));}
-
         //Output path
         if(conf.getString("rosalind.output_path").equals("default")) {
             filePathOut = Paths.get(System.getProperty("user.home")
-                    + "/Documents/rosalind_data/rosalind_" + problemID + "_out.txt");
+                    + "/Documents/rosalind_" + problemID + "_out.txt");
         } else {filePathOut = Paths.get(conf.getString("rosalind.output_path"));}
 
         //Read input file

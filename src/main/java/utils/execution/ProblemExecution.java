@@ -1,5 +1,8 @@
 package utils.execution;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.*;
 import java.util.ArrayList;
 
@@ -7,6 +10,7 @@ import java.util.ArrayList;
  * @author tlvlp
  */
 public class ProblemExecution {
+    private static final Logger log = LogManager.getLogger(ProblemExecution.class);
     
     /**
      * Executes a problem module using reflection
@@ -31,9 +35,7 @@ public class ProblemExecution {
             Method thisMethod = thisClass.getDeclaredMethod(aMethod, parameterTypes);   //get the method
             return (ArrayList<String>) thisMethod.invoke(iClass, arguments);            //call the method
         } catch (Exception e) {                                                      //terminating run for any exception
-            System.err.println("Failed to execute the problem module for the following reason: "
-                               +e.toString()+
-                               "\nTerminating run!");
+            log.error("Failed to execute the problem module. Terminating run!", e);
             System.exit(0);
         }
         return inList;                 //this return statement is never used - still looking for a more elegant solution

@@ -16,9 +16,7 @@ public class grph {
         ArrayList<Fasta> inListFasta = ParseToFastaObjects.parse(inList);
         for(Fasta tail:inListFasta){
             String tailSeq = tail.getSequence();
-            log.debug("===============================================================================");
-            log.debug("Tail sequence: "+tailSeq);
-            log.debug("===================================");
+            log.debug("### Tail sequence: "+tailSeq);
             if (tailSeq.length()<=2) {continue;}            //skip if shorter than 3bp
             for(Fasta head:inListFasta){
                 String headSeq = head.getSequence();

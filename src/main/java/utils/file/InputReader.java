@@ -31,8 +31,7 @@ public class InputReader {
                 inList.add(inFile.nextLine());
             }
         } catch (FileNotFoundException e) {
-            log.error("Input file not found on the following path:"
-                    + "\n"+filePath+"\nTerminating run!",e);
+            log.error("Input file was not found. Terminating run!",e);
             System.exit(0);
         }
         return inList;
