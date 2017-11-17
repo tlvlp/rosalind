@@ -1,7 +1,7 @@
 package problems;
 
 import java.util.*;
-import utils.bio.TranslationOfRNAToProt;
+import utils.bio.TranslateRNAToProt;
 
 /**
  * @author tlvlp
@@ -18,7 +18,7 @@ public class prot {
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         for (int i=0; i<inList.size(); i++) {
-            outList.add(TranslationOfRNAToProt.get(inList.get(i)));
+            outList.add(TranslateRNAToProt.get(inList.get(i)));
         }
         return outList;
     }

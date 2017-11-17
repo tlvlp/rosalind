@@ -24,7 +24,7 @@ public class orf {
         ArrayList<String> outList = new ArrayList<>();
         ArrayList<String> inListFasta = ParseToFastaStrings.parse(inList);
         inListFasta.remove(0);                                                              //Remove the fasta header        
-        inListFasta.add(DNABaseComplement.dnaBaseComplement(inListFasta.get(0)));            //Add complement string                
+        inListFasta.add(DNABaseComplement.getComplementSequence(inListFasta.get(0)));            //Add complement string
         inListFasta = rna.solve(inListFasta);                                               //Transcribe exons to RNA
         outList.addAll(AllValidProteinSequencesFromRNA.get(inListFasta.get(0)));       //Collect all the protein sequence candidates for both directions
         outList.addAll(AllValidProteinSequencesFromRNA.get(inListFasta.get(1)));

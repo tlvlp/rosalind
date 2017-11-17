@@ -18,7 +18,7 @@ public class revc {
     public static ArrayList<String> solve(ArrayList<String> inList) {	
         ArrayList<String> outList = new ArrayList<>();
         for (String i : inList) {
-            outList.add(DNABaseComplement.dnaBaseComplement(i));
+            outList.add(DNABaseComplement.getComplementSequence(i));
         }
         return outList;
     }

@@ -8,7 +8,9 @@ import utils.parser.ParseToFastaObjects;
 import java.util.ArrayList;
 
 public class grph {
+
     private static final Logger log = LogManager.getLogger(grph.class);
+
     public static ArrayList<String> solve(ArrayList<String> inList) {
         ArrayList<String> outList = new ArrayList<>();
 

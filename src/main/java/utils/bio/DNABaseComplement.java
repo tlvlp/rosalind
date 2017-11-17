@@ -6,12 +6,12 @@ package utils.bio;
 public class DNABaseComplement {  
 
     /**
-     * Returns the complementer sequence of a DNA sequence.
+     * Returns the complement sequence of a DNA sequence.
      * @requires A String with a DNA sequence.
-     * @return   A String with the complementer of the original DNA sequence
+     * @return   A String with the complement of the original DNA sequence
      * @param strIn
      */
-    public static String dnaBaseComplement(String strIn) {
+    public static String getComplementSequence(String strIn) {
         String strOut = "";
         for (int i = strIn.length() - 1; i >= 0; --i) {
             switch (strIn.charAt(i)) {
@@ -30,5 +30,20 @@ public class DNABaseComplement {
             }
         }
         return strOut;
+    }
+
+    /**
+     * Returns true if the two input characthers are base complements.
+     */
+    public static Boolean isComplementChar(Character base1, Character base2) {
+        Character.toUpperCase(base1);
+        Character.toUpperCase(base2);
+
+        if( (base1=='A' && base2=='T')||
+            (base1=='T' && base2=='A')||
+            (base1=='G' && base2=='C')||
+            (base1=='C' && base2=='G')
+            ){return true;}
+        else {return false;}
     }
 }

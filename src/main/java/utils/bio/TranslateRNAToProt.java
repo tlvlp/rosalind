@@ -5,7 +5,7 @@ import utils.converter.AminoAcidFromRNA;
 /**
  * @author tlvlp
  */
-public class TranslationOfRNAToProt {
+public class TranslateRNAToProt {
 
     /**
      * Returns the protein(amino acid) sequence of an RNA sequence.
